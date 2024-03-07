@@ -1,0 +1,67 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background-blend-mode: screen;
+}
+
+html {
+  background-image: pink;
+}
+
+.main-panel {
+  width: 100vw;
+  height: 100vh;
+  background: purple;
+}
+
+.left-panel {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background: rgb(35, 177, 35);
+  float: left;
+  mix-blend-mode: luminosity;
+}
+
+.right-panel {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  background: red;
+  float: right;
+
+}
+
+#circles {
+  position: absolute;
+  right: 460px;
+
+  border-radius: 50%;
+}
+
+.circle {
+  position: absolute;
+
+  border-radius: 50%;
+
+  mix-blend-mode: difference;
+}
+
+.info {
+  font-family: "Courier New", Courier, monospace;
+  position: absolute;
+  bottom: 50px;
+  background-color: black;
+
+  text-align: center;
+
+  color: white;
+
+  margin-top: 20px;
+
+  height: 300px;
+  width: 600px;
+}
