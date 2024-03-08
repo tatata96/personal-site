@@ -1,116 +1,169 @@
-function generateCircles(numberOfCircles, radius, containerId) {
-  const container = document.getElementById(containerId);
+let font;
+let font2;
+let points = [];
+let msgInput;
+let x = 150,
+  y = 270;
 
-  const opacity = 1;
-  const circleSize = "800px";
+let sizeSliderMin, sizeSliderMax;
 
-  const gradients = [
-    `radial-gradient(circle, rgba(255, 255, 107, ${opacity}), rgba(255, 209, 102, ${opacity}))`,
-    `radial-gradient(circle, rgba(107, 255, 149, ${opacity}), rgba(136, 176, 75, ${opacity}))`,
-    `radial-gradient(circle, rgba(255, 170, 222, ${opacity}), rgba(255, 140, 148, ${opacity}))`,
-    `radial-gradient(circle, rgba(255, 107, 102, ${opacity}), rgba(255, 209, 102, ${opacity}))`,
-    `radial-gradient(circle, rgba(107, 91, 149, ${opacity}), rgba(136, 176, 75, ${opacity}))`,
-    `radial-gradient(circle, rgba(255, 170, 166, ${opacity}), rgba(255, 140, 148, ${opacity}))`,
-    `radial-gradient(circle, rgba(255, 107, 107, ${opacity}), rgba(255, 209, 102, ${opacity}))`,
-    `radial-gradient(circle, rgba(107, 91, 149, ${opacity}), rgba(136, 176, 75, ${opacity}))`,
-  ];
+let alphabets = [
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z",
+];
 
-  for (let i = 0; i < numberOfCircles; i++) {
-    const circle = document.createElement("div");
-    circle.classList.add("circle");
+// Sliders variable
+let radius, wave, size, num, speed;
+let y0 = 60;
 
-    // Random gradient for each circle
-    const randomGradient =
-      gradients[Math.floor(Math.random() * gradients.length)];
-    circle.style.background = randomGradient;
+// Oscillation variable
+let angle = 0;
 
-    circle.style.width = circleSize;
-    circle.style.height = circleSize;
-
-
-    // if (i % 2 == 0) {
-    //   circle.style.mixBlendMode = "multiply";
-    // } else {
-    //   circle.style.mixBlendMode = "screen";
-    // }
-
-    // // Random opacity for each circle
-    // const randomOpacity = 0.4 + Math.random() * (1 - 0.4);
-    // circle.style.opacity = randomOpacity;
-
-    const angle = (360 / numberOfCircles) * i;
-    const x = radius * Math.cos((angle * Math.PI) / 180);
-    const y = radius * Math.sin((angle * Math.PI) / 180);
-
-    circle.style.left = `calc(50% + ${x}px - 25px)`;
-    circle.style.top = `calc(50% + ${y}px - 25px)`;
-
-    container.appendChild(circle);
-  }
-
-  //animate circles
-  gsap.fromTo(
-    ".circle",
-    {scaleX: 0, scaleY: 0},
-    {
-      scaleX: 1,
-      scaleY: 1,
-      duration: 1,
-      delay: 1,
-      stagger: 0.2,
-      // onComplete: function() {
-      //   // Start breathing animation after the initial scaling animation completes
-      //   gsap.to(".circle", {
-      //     scale: 1.1,
-      //     repeat: -1,
-      //     yoyo: true,
-      //     duration: 3,
-      //     ease: "power1.inOut",
-      //   });
-      // }
-    }
-  );
-
-  const circles = document.querySelectorAll(".circle");
-  circles.forEach((circle) => {
-    circle.addEventListener("mouseover", () => {
-      gsap.to(circle, {
-        scale: 1.2,
-        y: -50,
-        x: -50,
-
-        rotation: 360,
-        duration: 1,
-        ease: "power2.inOut",
-      });
-    });
-    circle.addEventListener("mouseout", () => {
-      gsap.to(circle, {
-        scale: 1,
-        rotation: 0,
-        y: +50,
-        x: +50,
-
-        duration: 1,
-        ease: "power2.inOut",
-      });
-    });
-  });
+function preload() {
+  font = loadFont("fonts/Roboto-Regular.ttf");
+  font2 = loadFont("fonts/BebasNeue-Regular.ttf");
 }
 
-generateCircles(17, 900, "circles");
+function setup() {
+  createCanvas(windowWidth, 400);
+  angleMode(DEGREES);
+  gui();
 
-// element with class main-panel should come from the top when page is loaded use gsap
+  fontSize = min(windowWidth / 10, 270);
+  textFont(fontSize);
+}
 
-gsap.from(".main-panel", {y: -1000, duration: 2, ease: "power2.inOut"});
+function gui() {
+  fill("blue");
 
-// element with class right-panel should come from bottom to top on load
-gsap.from(".left-panel", {y: 1000, duration: 2, ease: "power2.inOut"});
+  let slidersX = windowWidth - 130; // Adjust the X position of sliders
+  let slidersY = windowHeight - 200; // Adjust the Y position of sliders
 
-gsap.from(".left-panel .info", {
-  autoAlpha: 0,
-  x: -1000,
-  duration: 1.5,
-  ease: "power2.inOut",
-  delay: 2.5,
-});
+  radius = createSlider(5, 30, 5); // Set default value for radius slider to 5
+  radius.position(slidersX, slidersY);
+  radius.size(100);
+  radius.addClass("sliders");
+  radius.input(() => logSliderValue(radius, "RADIUS")); // Attach input event listener
+
+  wave = createSlider(10, 30, 25);
+  wave.position(slidersX, slidersY + 20);
+  wave.size(100);
+  wave.addClass("sliders");
+  wave.input(() => logSliderValue(wave, "WAVE"));
+
+  size = createSlider(1, 30, 24); // Set default value for size slider to 24
+  size.position(slidersX, slidersY + 40);
+  size.size(100);
+  size.addClass("sliders");
+  size.input(() => logSliderValue(size, "SIZE"));
+
+  num = createSlider(4, 20, 8); // Set minimum value for num slider to 4 and default value to 8
+  num.position(slidersX, slidersY + 60);
+  num.size(100);
+  num.addClass("sliders");
+  num.input(() => logSliderValue(num, "NUM"));
+
+  speed = createSlider(1, 5, 3); // Set default value for speed slider to 3
+  speed.position(slidersX, slidersY + 80);
+  speed.size(100);
+  speed.addClass("sliders");
+  speed.input(() => logSliderValue(speed, "SPEED"));
+}
+
+// Function to log slider value with its name
+function logSliderValue(slider, name) {
+  console.log(`${name}: ${slider.value()}`);
+}
+
+function draw() {
+  background(255);
+  fill(0);
+  textFont(font2);
+
+  let speedValue = map(mouseY, 0, height, 1, 4); // Map mouseX position between 4 and 20 for num slider
+  speed.value(speedValue); // Set the value of num slider based on mapped value
+
+  let sizeValue = map(mouseX, 0, width, 10, 30); // Map mouseX position between 4 and 20 for num slider
+  size.value(sizeValue); // Set the value of num slider based on mapped value
+
+  let r = radius.value();
+  let w = wave.value();
+  let s = size.value();
+  let n = num.value() * 0.01;
+  let sp = speed.value();
+
+  let hello = "Hello";
+  let stranger = "Stranger";
+  let m = hello.toUpperCase(); // Get value from input and convert to uppercase
+  let m2 = stranger.toUpperCase();
+
+  if (windowWidth < 600) {
+    let helloPoints = font.textToPoints(m, x, y, fontSize, {
+      sampleFactor: n,
+    });
+
+    let strangerPoints = font.textToPoints(m2, x, y + 100, fontSize, {
+      sampleFactor: n,
+    });
+
+    createDancingLetters(helloPoints, r, w, s);
+    createDancingLetters(strangerPoints, r, w, s);
+  } else {
+    let wholeText = "Hello Stranger".toUpperCase();
+
+    let wholeTextPoints = font.textToPoints(wholeText, x, y, fontSize, {
+      sampleFactor: n,
+    });
+
+    createDancingLetters(wholeTextPoints, r, w, s);
+  }
+
+  angle += sp;
+}
+
+function createDancingLetters(points, r, w, s) {
+  for (let i = 0; i < points.length; i++) {
+    let offsetX = r * cos(angle + i * w) - 100; // Calculate the dynamic offset in the x-direction
+    let ellipseX = points[i].x + offsetX; // Add the offset to the original x-coordinate and apply additional offset
+    let ellipseY = points[i].y; // Keep the y-coordinate unchanged
+    noStroke();
+    fill("#FBD770");
+    ellipse(ellipseX, ellipseY, s, s);
+    fill("#FFF502");
+    ellipse(ellipseX, ellipseY, s / 2, s / 2);
+  }
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, 400);
+  // Recalculate the positions of the ellipses based on the new canvas size
+  x = 150; // Adjust the x-coordinate for the text
+
+  y = 370; // Maintain the original y-coordinate for the text
+  fontSize = min(windowWidth / 10, 230); // Adjust the font size based on the new canvas width
+  redraw(); // Redraw the canvas to update the text and ellipses
+}
