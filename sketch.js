@@ -2,8 +2,8 @@ let font;
 let font2;
 let points = [];
 let msgInput;
-let x = 150,
-  y = 270;
+let x = 110,
+  y = 120;
 
 let sizeSliderMin, sizeSliderMax;
 
@@ -43,58 +43,25 @@ let y0 = 60;
 // Oscillation variable
 let angle = 0;
 
+// let numSliderMin = 1;
+// let sizeliderMin = 4;
+
 function preload() {
   font = loadFont("fonts/Roboto-Regular.ttf");
   font2 = loadFont("fonts/BebasNeue-Regular.ttf");
 }
 
 function setup() {
-  createCanvas(windowWidth, 400);
-  angleMode(DEGREES);
-  gui();
+  // createCanvas(windowWidth , windowHeight / 3);
+  createCanvas(document.body.clientWidth, windowHeight / 3);
 
-  fontSize = min(windowWidth / 10, 270);
+  angleMode(DEGREES);
+
+  fontSize = min(windowWidth / 10, 230); // Adjust the font size based on the new canvas width
   textFont(fontSize);
 }
 
-function gui() {
-  fill("blue");
 
-  let slidersX = windowWidth - 130; // Adjust the X position of sliders
-  let slidersY = windowHeight - 200; // Adjust the Y position of sliders
-
-  radius = createSlider(5, 30, 5); // Set default value for radius slider to 5
-  radius.position(slidersX, slidersY);
-  radius.size(100);
-  radius.addClass("sliders");
-  radius.input(() => logSliderValue(radius, "RADIUS")); // Attach input event listener
-
-  wave = createSlider(10, 30, 25);
-  wave.position(slidersX, slidersY + 20);
-  wave.size(100);
-  wave.addClass("sliders");
-  wave.input(() => logSliderValue(wave, "WAVE"));
-
-  size = createSlider(1, 30, 24); // Set default value for size slider to 24
-  size.position(slidersX, slidersY + 40);
-  size.size(100);
-  size.addClass("sliders");
-  size.input(() => logSliderValue(size, "SIZE"));
-
-  num = createSlider(4, 20, 8); // Set minimum value for num slider to 4 and default value to 8
-  num.position(slidersX, slidersY + 60);
-  num.size(100);
-  num.addClass("sliders");
-  num.input(() => logSliderValue(num, "NUM"));
-
-  speed = createSlider(1, 5, 3); // Set default value for speed slider to 3
-  speed.position(slidersX, slidersY + 80);
-  speed.size(100);
-  speed.addClass("sliders");
-  speed.input(() => logSliderValue(speed, "SPEED"));
-}
-
-// Function to log slider value with its name
 function logSliderValue(slider, name) {
   console.log(`${name}: ${slider.value()}`);
 }
@@ -104,29 +71,25 @@ function draw() {
   fill(0);
   textFont(font2);
 
-  let speedValue = map(mouseY, 0, height, 1, 4); // Map mouseX position between 4 and 20 for num slider
-  speed.value(speedValue); // Set the value of num slider based on mapped value
-
-  let sizeValue = map(mouseX, 0, width, 10, 30); // Map mouseX position between 4 and 20 for num slider
-  size.value(sizeValue); // Set the value of num slider based on mapped value
-
-  let r = radius.value();
-  let w = wave.value();
-  let s = size.value();
-  let n = num.value() * 0.01;
-  let sp = speed.value();
-
-  let hello = "Hello";
-  let stranger = "Stranger";
-  let m = hello.toUpperCase(); // Get value from input and convert to uppercase
-  let m2 = stranger.toUpperCase();
+  let r = 5;
+  let w = 11;
+  let s = map(mouseX, 0, width, 10, 30);
+  let n = 10 * 0.01;
+  let sp = map(mouseY, 0, height, 1, 5);
 
   if (windowWidth < 600) {
+    let hello = "Hello";
+    let stranger = "Stranger";
+    let m = hello.toUpperCase();
+    let m2 = stranger.toUpperCase();
+
+    y = 60;
+
     let helloPoints = font.textToPoints(m, x, y, fontSize, {
       sampleFactor: n,
     });
 
-    let strangerPoints = font.textToPoints(m2, x, y + 100, fontSize, {
+    let strangerPoints = font.textToPoints(m2, x, y + 80, fontSize, {
       sampleFactor: n,
     });
 
@@ -159,11 +122,12 @@ function createDancingLetters(points, r, w, s) {
 }
 
 function windowResized() {
-  resizeCanvas(windowWidth, 400);
-  // Recalculate the positions of the ellipses based on the new canvas size
-  x = 150; // Adjust the x-coordinate for the text
+  resizeCanvas(document.body.clientWidth, windowHeight / 3);
 
-  y = 370; // Maintain the original y-coordinate for the text
-  fontSize = min(windowWidth / 10, 230); // Adjust the font size based on the new canvas width
-  redraw(); // Redraw the canvas to update the text and ellipses
+  // if (windowWidth < 600) {
+  //   num.value(107);
+  //   size.value(10)
+  // }
+
+  fontSize = min(windowWidth / 10, 230);
 }
