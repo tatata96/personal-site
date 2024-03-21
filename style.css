@@ -80,6 +80,10 @@ canvas {
   display: block;
 }
 
+canvas:hover {
+  cursor: pointer;
+}
+
 .bottom {
   display: flex;
   justify-content: space-between;
