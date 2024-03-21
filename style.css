@@ -28,6 +28,10 @@ body {
   overflow: hidden;
 }
 
+.title {
+  color: #f3ce00;
+}
+
 .link-row a:after {
   background: url(./arrow.svg) no-repeat;
   background-position-x: -16px;
