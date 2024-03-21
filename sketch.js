@@ -8,7 +8,7 @@ let x = 110,
 const light = "white";
 const dark = "black";
 
-let bgcolor = light;
+let bgcolor = dark;
 
 let sizeSliderMin, sizeSliderMax;
 
@@ -122,21 +122,47 @@ function setup() {
 
   textFont(fontSize);
 
-  const canvas = document.querySelectorAll("canvas")[0];
+  const darkModeButton = document.createElement("button");
+  darkModeButton.innerText = "";
+  darkModeButton.classList.add("dark-mode-button");
+  darkModeButton.classList.add("dark-mode-button--dark");
 
-  canvas.addEventListener("mouseover", () => {
-    crazyMode = true;
+  const linksContainer = document.querySelector("#paragraph");
+  linksContainer.insertAdjacentElement("afterend", darkModeButton);
+
+  darkModeButton.addEventListener("click", () => {
+    toggleDarkMode();
+  });
+
+  const canvas = document.querySelector("canvas");
+
+  canvas.addEventListener("click", () => {
+    toggleCrazyMode();
+  });
+}
+
+function toggleCrazyMode() {
+  crazyMode = !crazyMode;
+}
+
+function toggleDarkMode() {
+  if (bgcolor === light) {
+    document
+      .getElementsByClassName("dark-mode-button")[0]
+      .classList.add("dark-mode-button--dark");
+
     bgcolor = dark;
     document.body.style.backgroundColor = dark;
     document.body.style.color = light;
-  });
+  } else {
+    document
+      .getElementsByClassName("dark-mode-button")[0]
+      .classList.remove("dark-mode-button--dark");
 
-  canvas.addEventListener("mouseout", () => {
-    crazyMode = false;
     bgcolor = light;
     document.body.style.backgroundColor = light;
     document.body.style.color = dark;
-  });
+  }
 }
 
 let colorIndex = 0;
@@ -147,9 +173,9 @@ function draw() {
   textFont(font2);
 
   let w = 17;
-  let s = map(mouseX, 0, width, 12, 23);
+  let s = map(mouseX, 0, width, 13, 24);
   let n = 10 * 0.01;
-  let sp = map(mouseY, 0, height, 1, 5);
+  let sp = map(mouseY, 0, height, 3, 7);
 
   if (windowWidth < 600) {
     let hello = "Hello";
