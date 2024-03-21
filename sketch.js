@@ -66,7 +66,7 @@ function setup() {
   createCanvas(document.body.clientWidth, windowHeight / 5);
   fontSize = min(windowWidth / 10, 230);
 
-  y = fontSize;
+  y = windowWidth / 12;
 
   angleMode(DEGREES);
 

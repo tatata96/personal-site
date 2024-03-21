@@ -33,7 +33,7 @@ canvas {
 .bottom {
   display: flex;
   justify-content: space-between;
-  gap: 70px;
+  gap: 50px;
 
   line-height: 28px;
 }
@@ -48,13 +48,15 @@ canvas {
 
   display: flex;
   align-items: flex-start;
-  gap: 125px;
+  gap: 70px;
   flex-direction: column;
 }
 
 .link-row {
   display: flex;
   gap: 10px;
+
+  line-height: unset;
 }
 
 @media only screen and (max-width: 600px) {
