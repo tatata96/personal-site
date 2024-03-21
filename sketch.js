@@ -1,9 +1,14 @@
 let font;
 let font2;
 let points = [];
-let msgInput;
-let x = 150,
-  y = 270;
+
+let x = 110,
+  y;
+
+const light = "white";
+const dark = "black";
+
+let bgcolor = light;
 
 let sizeSliderMin, sizeSliderMax;
 
@@ -36,6 +41,56 @@ let alphabets = [
   "Z",
 ];
 
+const colorsStandard = [
+  "#f00204",
+  "#f3ce00",
+  "#bfa2f4",
+  "#f35c01",
+  "#009801",
+  "#0333dc",
+  "#87daf3",
+  "#f494d3",
+];
+
+const colors = [
+  "#f00204",
+  "#f00204",
+  "#f00204",
+  "#f00204",
+  "#f3ce00",
+  "#f3ce00",
+  "#f3ce00",
+  "#f3ce00",
+  "#bfa2f4",
+  "#bfa2f4",
+  "#bfa2f4",
+  "#bfa2f4",
+  "#f35c01",
+  "#f35c01",
+  "#f35c01",
+  "#f35c01",
+  "#009801",
+  "#009801",
+  "#009801",
+  "#009801",
+  "#0333dc",
+  "#0333dc",
+  "#0333dc",
+  "#0333dc",
+  "#87daf3",
+  "#87daf3",
+  "#87daf3",
+  "#87daf3",
+  "#f494d3",
+  "#f494d3",
+  "#f494d3",
+  "#f494d3",
+  "#f494d3",
+  "#f494d3",
+  "#f494d3",
+  "#f494d3",
+];
+
 // Sliders variable
 let radius, wave, size, num, speed;
 let y0 = 60;
@@ -43,90 +98,72 @@ let y0 = 60;
 // Oscillation variable
 let angle = 0;
 
+// let numSliderMin = 1;
+// let sizeliderMin = 4;
+
+let crazyMode = false;
+
+let r = 5;
+
 function preload() {
   font = loadFont("fonts/Roboto-Regular.ttf");
   font2 = loadFont("fonts/BebasNeue-Regular.ttf");
 }
 
 function setup() {
-  createCanvas(windowWidth, 400);
+  createCanvas(document.body.clientWidth, windowHeight / 5);
+  fontSize = min(windowWidth / 10, 230);
+
+  noStroke();
+
+  y = windowWidth / 12;
+
   angleMode(DEGREES);
-  gui();
 
-  fontSize = min(windowWidth / 10, 270);
   textFont(fontSize);
+
+  const canvas = document.querySelectorAll("canvas")[0];
+
+  canvas.addEventListener("mouseover", () => {
+    crazyMode = true;
+    bgcolor = dark;
+    document.body.style.backgroundColor = dark;
+    document.body.style.color = light;
+  });
+
+  canvas.addEventListener("mouseout", () => {
+    crazyMode = false;
+    bgcolor = light;
+    document.body.style.backgroundColor = light;
+    document.body.style.color = dark;
+  });
 }
 
-function gui() {
-  fill("blue");
-
-  let slidersX = windowWidth - 130; // Adjust the X position of sliders
-  let slidersY = windowHeight - 200; // Adjust the Y position of sliders
-
-  radius = createSlider(5, 30, 5); // Set default value for radius slider to 5
-  radius.position(slidersX, slidersY);
-  radius.size(100);
-  radius.addClass("sliders");
-  radius.input(() => logSliderValue(radius, "RADIUS")); // Attach input event listener
-
-  wave = createSlider(10, 30, 25);
-  wave.position(slidersX, slidersY + 20);
-  wave.size(100);
-  wave.addClass("sliders");
-  wave.input(() => logSliderValue(wave, "WAVE"));
-
-  size = createSlider(1, 30, 24); // Set default value for size slider to 24
-  size.position(slidersX, slidersY + 40);
-  size.size(100);
-  size.addClass("sliders");
-  size.input(() => logSliderValue(size, "SIZE"));
-
-  num = createSlider(4, 20, 8); // Set minimum value for num slider to 4 and default value to 8
-  num.position(slidersX, slidersY + 60);
-  num.size(100);
-  num.addClass("sliders");
-  num.input(() => logSliderValue(num, "NUM"));
-
-  speed = createSlider(1, 5, 3); // Set default value for speed slider to 3
-  speed.position(slidersX, slidersY + 80);
-  speed.size(100);
-  speed.addClass("sliders");
-  speed.input(() => logSliderValue(speed, "SPEED"));
-}
-
-// Function to log slider value with its name
-function logSliderValue(slider, name) {
-  console.log(`${name}: ${slider.value()}`);
-}
+let colorIndex = 0;
 
 function draw() {
-  background(255);
+  background(bgcolor);
   fill(0);
   textFont(font2);
 
-  let speedValue = map(mouseY, 0, height, 1, 4); // Map mouseX position between 4 and 20 for num slider
-  speed.value(speedValue); // Set the value of num slider based on mapped value
-
-  let sizeValue = map(mouseX, 0, width, 10, 30); // Map mouseX position between 4 and 20 for num slider
-  size.value(sizeValue); // Set the value of num slider based on mapped value
-
-  let r = radius.value();
-  let w = wave.value();
-  let s = size.value();
-  let n = num.value() * 0.01;
-  let sp = speed.value();
-
-  let hello = "Hello";
-  let stranger = "Stranger";
-  let m = hello.toUpperCase(); // Get value from input and convert to uppercase
-  let m2 = stranger.toUpperCase();
+  let w = 17;
+  let s = map(mouseX, 0, width, 12, 23);
+  let n = 10 * 0.01;
+  let sp = map(mouseY, 0, height, 1, 5);
 
   if (windowWidth < 600) {
+    let hello = "Hello";
+    let stranger = "Stranger";
+    let m = hello.toUpperCase();
+    let m2 = stranger.toUpperCase();
+
+    y = 60;
+
     let helloPoints = font.textToPoints(m, x, y, fontSize, {
       sampleFactor: n,
     });
 
-    let strangerPoints = font.textToPoints(m2, x, y + 100, fontSize, {
+    let strangerPoints = font.textToPoints(m2, x, y + 80, fontSize, {
       sampleFactor: n,
     });
 
@@ -143,6 +180,7 @@ function draw() {
   }
 
   angle += sp;
+  colorIndex = (colorIndex + 1) % colors.length;
 }
 
 function createDancingLetters(points, r, w, s) {
@@ -150,20 +188,29 @@ function createDancingLetters(points, r, w, s) {
     let offsetX = r * cos(angle + i * w) - 100; // Calculate the dynamic offset in the x-direction
     let ellipseX = points[i].x + offsetX; // Add the offset to the original x-coordinate and apply additional offset
     let ellipseY = points[i].y; // Keep the y-coordinate unchanged
-    noStroke();
-    fill("#FBD770");
+
+    if (crazyMode) {
+      fillCrazyMode(i);
+    } else {
+      fillStandardMode(i);
+    }
+
     ellipse(ellipseX, ellipseY, s, s);
-    fill("#FFF502");
-    ellipse(ellipseX, ellipseY, s / 2, s / 2);
   }
 }
 
-function windowResized() {
-  resizeCanvas(windowWidth, 400);
-  // Recalculate the positions of the ellipses based on the new canvas size
-  x = 150; // Adjust the x-coordinate for the text
+function fillStandardMode(i) {
+  fill(colorsStandard[i % colorsStandard.length]);
+}
 
-  y = 370; // Maintain the original y-coordinate for the text
-  fontSize = min(windowWidth / 10, 230); // Adjust the font size based on the new canvas width
-  redraw(); // Redraw the canvas to update the text and ellipses
+function fillCrazyMode(i) {
+  fill(colors[(colorIndex + i) % colors.length]);
+}
+
+function windowResized() {
+  resizeCanvas(document.body.clientWidth, windowHeight / 5.5);
+
+  y = windowHeight / 6 / 1.1;
+
+  fontSize = min(windowWidth / 10, 230);
 }
