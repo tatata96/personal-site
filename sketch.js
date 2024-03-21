@@ -1,9 +1,9 @@
 let font;
 let font2;
 let points = [];
-let msgInput;
+
 let x = 110,
-  y = 120;
+  y;
 
 let sizeSliderMin, sizeSliderMax;
 
@@ -52,28 +52,24 @@ function preload() {
 }
 
 function setup() {
-  // createCanvas(windowWidth , windowHeight / 3);
-  createCanvas(document.body.clientWidth, windowHeight / 3);
+  createCanvas(document.body.clientWidth, windowHeight / 5);
+  fontSize = min(windowWidth / 10, 230);
+
+  y = fontSize;
 
   angleMode(DEGREES);
 
-  fontSize = min(windowWidth / 10, 230); // Adjust the font size based on the new canvas width
   textFont(fontSize);
 }
 
-
-function logSliderValue(slider, name) {
-  console.log(`${name}: ${slider.value()}`);
-}
-
 function draw() {
-  background(255);
+  background(255, 251, 238);
   fill(0);
   textFont(font2);
 
   let r = 5;
-  let w = 11;
-  let s = map(mouseX, 0, width, 10, 30);
+  let w = 14;
+  let s = map(mouseX, 0, width, 10, 20);
   let n = 10 * 0.01;
   let sp = map(mouseY, 0, height, 1, 5);
 
@@ -122,12 +118,13 @@ function createDancingLetters(points, r, w, s) {
 }
 
 function windowResized() {
-  resizeCanvas(document.body.clientWidth, windowHeight / 3);
+  resizeCanvas(document.body.clientWidth, windowHeight / 5.5);
 
   // if (windowWidth < 600) {
   //   num.value(107);
   //   size.value(10)
   // }
+  y = windowHeight / 6 / 1.1;
 
   fontSize = min(windowWidth / 10, 230);
 }
