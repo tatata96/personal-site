@@ -5,7 +5,7 @@ let points = [];
 let x = 110,
   y;
 
-const light = "rgb(255, 251, 238)";
+const light = "white";
 const dark = "black";
 
 let bgcolor = light;
@@ -190,7 +190,6 @@ function createDancingLetters(points, r, w, s) {
     let ellipseY = points[i].y; // Keep the y-coordinate unchanged
 
     if (crazyMode) {
-      console.log("crazzyy");
       fillCrazyMode(i);
     } else {
       fillStandardMode(i);

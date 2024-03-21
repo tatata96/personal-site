@@ -1,6 +1,7 @@
 html,
 body {
-  font-family: sans-serif; /* Use system font */
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-optical-sizing: auto;
 
   margin: 0;
   padding: 0;
@@ -23,9 +24,14 @@ body {
   flex-direction: column-reverse;
   justify-content: space-evenly;
 
-  background-color: rgb(255 251 238);
+  background-color: white;
 
   overflow: hidden;
+}
+
+::selection {
+  color: rgb(15 255 14);
+  background: rgb(200, 90, 184);
 }
 
 .title {
