@@ -5,6 +5,11 @@ let points = [];
 let x = 110,
   y;
 
+const light = "rgb(255, 251, 238)";
+const dark = "black";
+
+let bgcolor = light;
+
 let sizeSliderMin, sizeSliderMax;
 
 let alphabets = [
@@ -36,7 +41,7 @@ let alphabets = [
   "Z",
 ];
 
-const colors = [
+const colorsStandard = [
   "#f00204",
   "#f3ce00",
   "#bfa2f4",
@@ -44,6 +49,45 @@ const colors = [
   "#009801",
   "#0333dc",
   "#87daf3",
+  "#f494d3",
+];
+
+const colors = [
+  "#f00204",
+  "#f00204",
+  "#f00204",
+  "#f00204",
+  "#f3ce00",
+  "#f3ce00",
+  "#f3ce00",
+  "#f3ce00",
+  "#bfa2f4",
+  "#bfa2f4",
+  "#bfa2f4",
+  "#bfa2f4",
+  "#f35c01",
+  "#f35c01",
+  "#f35c01",
+  "#f35c01",
+  "#009801",
+  "#009801",
+  "#009801",
+  "#009801",
+  "#0333dc",
+  "#0333dc",
+  "#0333dc",
+  "#0333dc",
+  "#87daf3",
+  "#87daf3",
+  "#87daf3",
+  "#87daf3",
+  "#f494d3",
+  "#f494d3",
+  "#f494d3",
+  "#f494d3",
+  "#f494d3",
+  "#f494d3",
+  "#f494d3",
   "#f494d3",
 ];
 
@@ -56,6 +100,10 @@ let angle = 0;
 
 // let numSliderMin = 1;
 // let sizeliderMin = 4;
+
+let crazyMode = false;
+
+let r = 5;
 
 function preload() {
   font = loadFont("fonts/Roboto-Regular.ttf");
@@ -71,14 +119,47 @@ function setup() {
   angleMode(DEGREES);
 
   textFont(fontSize);
+
+  const links = document.querySelectorAll(".link-row p");
+
+  links.forEach((link) => {
+    link.addEventListener("mouseover", () => {
+      bgcolor = dark;
+    });
+
+    link.addEventListener("mouseout", () => {
+      bgcolor = light;
+    });
+  });
+  // const canvas = document.querySelectorAll("canvas")[0];
+
+  // canvas.addEventListener("mouseover", () => {
+  //   document.body.style.pointerEvents = "auto";
+
+  //   crazyMode = true;
+  //   r = 10;
+  //   document.body.style.backgroundColor = dark;
+
+  //   // bgcolor = dark;
+  // });
+
+  // canvas.addEventListener("mouseout", () => {
+  //   document.body.style.pointerEvents = "none";
+  //   // document.body.style.backgroundColor = light;
+
+  //   r = 5;
+  //   crazyMode = false;
+  //   // bgcolor = light;
+  // });
 }
 
+let colorIndex = 0;
+
 function draw() {
-  background(255, 251, 238);
+  background(bgcolor);
   fill(0);
   textFont(font2);
 
-  let r = 5;
   let w = 17;
   let s = map(mouseX, 0, width, 10, 20);
   let n = 10 * 0.01;
@@ -113,6 +194,7 @@ function draw() {
   }
 
   angle += sp;
+  colorIndex = (colorIndex + 1) % colors.length;
 }
 
 function createDancingLetters(points, r, w, s) {
@@ -125,9 +207,23 @@ function createDancingLetters(points, r, w, s) {
     stroke("black");
     strokeWeight(3);
 
-    fill(colors[i % colors.length]);
+    if (crazyMode) {
+      console.log("crazzyy");
+      fillCrazyMode(i);
+    } else {
+      fillStandardMode(i);
+    }
+
     ellipse(ellipseX, ellipseY, s, s);
   }
+}
+
+function fillStandardMode(i) {
+  fill(colorsStandard[i % colorsStandard.length]);
+}
+
+function fillCrazyMode(i) {
+  fill(colors[(colorIndex + i) % colors.length]);
 }
 
 function windowResized() {

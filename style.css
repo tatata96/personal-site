@@ -27,7 +27,23 @@ body {
 
 canvas {
   display: block;
-  outline: 2px dotted blue;
+  /* pointer-events: auto; */
+}
+
+body {
+  pointer-events: none;
+}
+
+.link-row p {
+  pointer-events: auto;
+}
+
+body:hover {
+  background: rgb(0, 0, 0);
+}
+
+body:hover {
+  color: white;
 }
 
 .bottom {
