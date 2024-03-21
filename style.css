@@ -10,6 +10,11 @@ body {
   height: 100%;
 }
 
+a {
+  text-decoration: none;
+  color: #f35c01;
+}
+
 body {
   min-height: 100%;
   margin: 60px;
@@ -20,30 +25,36 @@ body {
 
   background-color: rgb(255 251 238);
 
-  /* outline: 2px dotted red; */
-
   overflow: hidden;
+}
+
+.link-row a:after {
+  background: url(./arrow.svg) no-repeat;
+  background-position-x: -16px;
+  background-position-y: 16px;
+  content: "";
+  display: inline-block;
+  height: 16px;
+  margin-bottom: -3px;
+  margin-left: 6px;
+  opacity: 0;
+  padding-top: 2px;
+  transition: all 0.2s ease;
+  width: 16px;
+}
+
+.link-row a:hover {
+  cursor: pointer;
+}
+
+.link-row a:hover:after {
+  background-position-x: 0;
+  background-position-y: 0;
+  opacity: 1;
 }
 
 canvas {
   display: block;
-  /* pointer-events: auto; */
-}
-
-body {
-  pointer-events: none;
-}
-
-.link-row p {
-  pointer-events: auto;
-}
-
-body:hover {
-  background: rgb(0, 0, 0);
-}
-
-body:hover {
-  color: white;
 }
 
 .bottom {

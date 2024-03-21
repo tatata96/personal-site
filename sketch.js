@@ -114,43 +114,29 @@ function setup() {
   createCanvas(document.body.clientWidth, windowHeight / 5);
   fontSize = min(windowWidth / 10, 230);
 
+  noStroke();
+
   y = windowWidth / 12;
 
   angleMode(DEGREES);
 
   textFont(fontSize);
 
-  const links = document.querySelectorAll(".link-row p");
+  const canvas = document.querySelectorAll("canvas")[0];
 
-  links.forEach((link) => {
-    link.addEventListener("mouseover", () => {
-      bgcolor = dark;
-    });
-
-    link.addEventListener("mouseout", () => {
-      bgcolor = light;
-    });
+  canvas.addEventListener("mouseover", () => {
+    crazyMode = true;
+    bgcolor = dark;
+    document.body.style.backgroundColor = dark;
+    document.body.style.color = light;
   });
-  // const canvas = document.querySelectorAll("canvas")[0];
 
-  // canvas.addEventListener("mouseover", () => {
-  //   document.body.style.pointerEvents = "auto";
-
-  //   crazyMode = true;
-  //   r = 10;
-  //   document.body.style.backgroundColor = dark;
-
-  //   // bgcolor = dark;
-  // });
-
-  // canvas.addEventListener("mouseout", () => {
-  //   document.body.style.pointerEvents = "none";
-  //   // document.body.style.backgroundColor = light;
-
-  //   r = 5;
-  //   crazyMode = false;
-  //   // bgcolor = light;
-  // });
+  canvas.addEventListener("mouseout", () => {
+    crazyMode = false;
+    bgcolor = light;
+    document.body.style.backgroundColor = light;
+    document.body.style.color = dark;
+  });
 }
 
 let colorIndex = 0;
@@ -161,7 +147,7 @@ function draw() {
   textFont(font2);
 
   let w = 17;
-  let s = map(mouseX, 0, width, 10, 20);
+  let s = map(mouseX, 0, width, 12, 23);
   let n = 10 * 0.01;
   let sp = map(mouseY, 0, height, 1, 5);
 
@@ -202,10 +188,6 @@ function createDancingLetters(points, r, w, s) {
     let offsetX = r * cos(angle + i * w) - 100; // Calculate the dynamic offset in the x-direction
     let ellipseX = points[i].x + offsetX; // Add the offset to the original x-coordinate and apply additional offset
     let ellipseY = points[i].y; // Keep the y-coordinate unchanged
-    noStroke();
-
-    stroke("black");
-    strokeWeight(3);
 
     if (crazyMode) {
       console.log("crazzyy");
@@ -229,10 +211,6 @@ function fillCrazyMode(i) {
 function windowResized() {
   resizeCanvas(document.body.clientWidth, windowHeight / 5.5);
 
-  // if (windowWidth < 600) {
-  //   num.value(107);
-  //   size.value(10)
-  // }
   y = windowHeight / 6 / 1.1;
 
   fontSize = min(windowWidth / 10, 230);
