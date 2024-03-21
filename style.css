@@ -9,16 +9,27 @@ body {
   box-sizing: border-box;
 
   height: 100%;
+
+  font-size: 14px;
 }
 
 a {
   text-decoration: none;
-  color: #f35c01;
+  color: #e78c4b;
+
+  /* font-family: "Lekton", sans-serif;
+  font-weight: 400;
+  font-style: normal; */
+}
+
+
+a.email {
+  color: rgb(191 162 245);
 }
 
 body {
   min-height: 100%;
-  margin: 60px;
+  margin: 0 60px;
 
   display: flex;
   flex-direction: column-reverse;
@@ -55,6 +66,8 @@ body {
 
 .link-row a:hover {
   cursor: pointer;
+
+  font-style: italic;
 }
 
 .link-row a:hover:after {
@@ -72,6 +85,8 @@ canvas {
   justify-content: space-between;
   gap: 50px;
 
+  width: 95%;
+
   line-height: 28px;
 
   margin-top: 35px;
@@ -79,7 +94,6 @@ canvas {
 
 #paragraph {
   flex: 1;
-  font-size: 16px;
 }
 
 .links-container {
