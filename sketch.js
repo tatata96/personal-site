@@ -36,6 +36,17 @@ let alphabets = [
   "Z",
 ];
 
+const colors = [
+  "#f00204",
+  "#f3ce00",
+  "#bfa2f4",
+  "#f35c01",
+  "#009801",
+  "#0333dc",
+  "#87daf3",
+  "#f494d3",
+];
+
 // Sliders variable
 let radius, wave, size, num, speed;
 let y0 = 60;
@@ -68,7 +79,7 @@ function draw() {
   textFont(font2);
 
   let r = 5;
-  let w = 14;
+  let w = 17;
   let s = map(mouseX, 0, width, 10, 20);
   let n = 10 * 0.01;
   let sp = map(mouseY, 0, height, 1, 5);
@@ -110,10 +121,12 @@ function createDancingLetters(points, r, w, s) {
     let ellipseX = points[i].x + offsetX; // Add the offset to the original x-coordinate and apply additional offset
     let ellipseY = points[i].y; // Keep the y-coordinate unchanged
     noStroke();
-    fill("#FBD770");
+
+    stroke("black");
+    strokeWeight(3);
+
+    fill(colors[i % colors.length]);
     ellipse(ellipseX, ellipseY, s, s);
-    fill("#FFF502");
-    ellipse(ellipseX, ellipseY, s / 2, s / 2);
   }
 }
 
