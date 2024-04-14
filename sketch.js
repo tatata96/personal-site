@@ -43,7 +43,7 @@ let alphabets = [
 
 const colorsStandard = [
   "#f00204",
-  "#f3ce00",
+  "#d6e95f",
   "#bfa2f4",
   "#f35c01",
   "#009801",
@@ -57,10 +57,10 @@ const colors = [
   "#f00204",
   "#f00204",
   "#f00204",
-  "#f3ce00",
-  "#f3ce00",
-  "#f3ce00",
-  "#f3ce00",
+  "#d6e95f",
+  "#d6e95f",
+  "#d6e95f",
+  "#d6e95f",
   "#bfa2f4",
   "#bfa2f4",
   "#bfa2f4",
@@ -106,13 +106,17 @@ let crazyMode = false;
 let r = 5;
 
 function preload() {
-  font = loadFont("fonts/Roboto-Regular.ttf");
+  font = loadFont("fonts/SansPosterBold.ttf");
+
   font2 = loadFont("fonts/BebasNeue-Regular.ttf");
+
+  // font = loadFont("fonts/SpicyRice-Regular.ttf");
+  // font = loadFont("fonts/Roboto-Regular.ttf");
 }
 
 function setup() {
   createCanvas(document.body.clientWidth, windowHeight / 5);
-  fontSize = min(windowWidth / 10, 230);
+  fontSize = min(windowWidth / 14, 230);
 
   noStroke();
 
@@ -122,17 +126,18 @@ function setup() {
 
   textFont(fontSize);
 
-  const darkModeButton = document.createElement("button");
-  darkModeButton.innerText = "";
-  darkModeButton.classList.add("dark-mode-button");
-  darkModeButton.classList.add("dark-mode-button--dark");
+  // DARK MODE SWITCH
+  // const darkModeButton = document.createElement("button");
+  // darkModeButton.innerText = "";
+  // darkModeButton.classList.add("dark-mode-button");
+  // darkModeButton.classList.add("dark-mode-button--dark");
 
-  const linksContainer = document.querySelector("#paragraph");
-  linksContainer.insertAdjacentElement("afterend", darkModeButton);
+  // const linksContainer = document.querySelector("#paragraph");
+  // linksContainer.insertAdjacentElement("afterend", darkModeButton);
 
-  darkModeButton.addEventListener("click", () => {
-    toggleDarkMode();
-  });
+  // darkModeButton.addEventListener("click", () => {
+  //   toggleDarkMode();
+  // });
 
   const canvas = document.querySelector("canvas");
 
@@ -212,14 +217,22 @@ function draw() {
 function createDancingLetters(points, r, w, s) {
   for (let i = 0; i < points.length; i++) {
     let offsetX = r * cos(angle + i * w) - 100; // Calculate the dynamic offset in the x-direction
-    let ellipseX = points[i].x + offsetX; // Add the offset to the original x-coordinate and apply additional offset
+    let ellipseX = points[i].x + offsetX + i / 3.5; // Add the offset to the original x-coordinate and apply additional offset
     let ellipseY = points[i].y; // Keep the y-coordinate unchanged
 
+    // stroke("white");
+    // strokeWeight(2);
     if (crazyMode) {
       fillCrazyMode(i);
     } else {
       fillStandardMode(i);
     }
+
+    // arc(ellipseX, ellipseY, s, s, 0, PI);
+
+    // fill("white")
+
+    // rect(ellipseX, ellipseY, s/25, s/25);
 
     ellipse(ellipseX, ellipseY, s, s);
   }
@@ -238,5 +251,5 @@ function windowResized() {
 
   y = windowHeight / 6 / 1.1;
 
-  fontSize = min(windowWidth / 10, 230);
+  fontSize = min(windowWidth / 14, 230);
 }

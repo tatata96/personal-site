@@ -1,7 +1,10 @@
 html,
 body {
-  font-family: "Plus Jakarta Sans", sans-serif;
+  font-family: "Manrope", sans-serif;
+  font-weight: 400;
+  font-style: normal;
   font-optical-sizing: auto;
+  text-align: justify;
 
   margin: 0;
   padding: 0;
@@ -14,16 +17,12 @@ body {
 }
 
 a {
-  text-decoration: none;
-  color: rgb(243 92 1);
-
-  /* font-family: "Lekton", sans-serif;
-  font-weight: 400;
-  font-style: normal; */
+  text-decoration: dotted;
+  color: white;
 }
 
 a.email {
-  color: rgb(191 162 245);
+  color: #d6e95f;
 }
 
 body {
@@ -46,7 +45,7 @@ body {
 }
 
 .title {
-  color: #f3ce00;
+  color: #d6e95f;
 }
 
 .link-row a:after {
@@ -85,9 +84,9 @@ canvas:hover {
 }
 
 .bottom {
-  display: flex;
-  justify-content: space-between;
-  gap: 50px;
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+  grid-gap: 40px;
 
   width: 95%;
 
@@ -100,6 +99,11 @@ canvas:hover {
   flex: 1;
 }
 
+.links {
+  align-self: center;
+  justify-self: end;
+}
+
 .links-container {
   flex: 1;
 
@@ -110,24 +114,23 @@ canvas:hover {
 }
 
 .link-row {
-  display: flex;
-  gap: 10px;
-
   line-height: unset;
 }
 
 .dark-mode-button {
   border-radius: 50%;
-  /* position: absolute; */
+  justify-self: center;
+  align-self: center;
   border: none;
   height: 20px;
   width: 20px;
-  background-color: #f3ce00;
-  bottom: 120px;
+  background-color: #d6e95f;
 }
 
 .dark-mode-button:hover {
   cursor: pointer;
+
+  box-shadow: 0 0 10px 0px #d6e95f;
 }
 
 .dark-mode-button--dark {
@@ -136,17 +139,26 @@ canvas:hover {
 
 @media only screen and (max-width: 600px) {
   .bottom {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  #paragraph {
-    font-size: 12px;
+    margin-top: 0;
   }
 }
 
 @media only screen and (max-width: 800px) {
   body {
-    margin: 40px;
+    /* margin: 40px; */
+    line-height: 20px;
+  }
+
+  .bottom {
+    grid-template-columns: 1fr;
+    grid-gap: 0;
+  }
+
+  .links {
+    justify-self: inherit;
+  }
+
+  .dark-mode-button {
+    justify-self: end;
   }
 }
