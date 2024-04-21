@@ -149,9 +149,9 @@ function svgAnimations() {
       // You Do You
       const youDoYouSticker = svgDoc.getElementById("badge-you");
 
-      const paths = svgDoc.querySelectorAll("path");
-      const circles = svgDoc.querySelectorAll("circle");
-      const rects = svgDoc.querySelectorAll("rect");
+      // const paths = svgDoc.querySelectorAll("path");
+      // const circles = svgDoc.querySelectorAll("circle");
+      // const rects = svgDoc.querySelectorAll("rect");
 
       window.addEventListener("mousemove", (e) => {
         const mouseX = e.pageX;
@@ -199,12 +199,6 @@ function svgAnimations() {
 document.addEventListener("DOMContentLoaded", () => {
   svgAnimations();
   headerMouseAnimation();
-  descriptionAnimateOnLoad();
 
-
-  descriptionAnimateOnLoad("text")
-  descriptionAnimateOnLoad("text2")
-  descriptionAnimateOnLoad("text3")
-
-
+  // descriptionAnimateOnLoad("text")
 });

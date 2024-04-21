@@ -67,39 +67,30 @@ strong {
   font-family: "Cheese-Shishi";
 }
 
-.highlight {
-  color: red;
-  font-family: serif;
-}
-
-.code {
-  font-family: Courier;
-  color: rgb(221, 202, 126);
-}
-
 #title {
   font-size: 10vw;
 }
 
 #text {
-  margin: 0 200px;
+  /* margin: 0 200px; */
+  width: 60%;
   color: #000000;
 
   font-size: 22px;
-  line-height: 28px;
+  line-height:28px;
   /* outline: 3px solid red; */
 }
 
 a:visited,
 a:link,
 a:active {
-  color: #87cd02;
+  color: rgb(239, 189, 228);
   text-decoration: none;
   display: inline-block;
 }
 
 a:hover {
-  background-color: #87cd02;
+  background-color: rgb(46, 218, 100);
   color: white;
 }
 
@@ -138,7 +129,7 @@ span {
 .tooltip-link::after {
   content: "";
   position: absolute;
-  bottom: calc(100% + 10px);
+  bottom: calc(100% - 10px);
   left: 90%;
   transform: translateX(-50%);
   width: 200px;
@@ -168,9 +159,94 @@ span {
   width: 100px;
   height: 100px;
 
+  bottom: calc(100%);
+  left: 90%;
+
   background-image: url("./media/description/web-gif.gif");
+  z-index: 3;
 }
 
-.tooltip-web strong{
-  color: rgb(236, 162, 219);
+.tooltip-developer::after {
+  background-image: url("./media/description/front.gif");
+  z-index: 3;
+}
+
+.tooltip-istanbul::after {
+  background-image: url("./media/description/ist.gif");
+  z-index: 3;
+}
+
+.tooltip-barcelona::after {
+  bottom: calc(100%);
+  left: 90%;
+
+  background-image: url("./media/description/barcelona.gif");
+  z-index: 3;
+}
+
+.tooltip-fin::after {
+  left: 90%;
+
+  background-image: url("./media/description/fin.gif");
+  z-index: 3;
+}
+
+.tooltip-joy::after {
+  bottom: calc(100%);
+  left: 90%;
+
+  background-image: url("./media/description/joy.gif");
+  z-index: 3;
+}
+
+.tooltip-who::after {
+  left: 90%;
+
+  background-image: url("./media/description/who.gif");
+  z-index: 3;
+}
+
+.tooltip-connect::after {
+  bottom: calc(100%);
+
+  left: 0;
+
+  background-image: url("./media/description/connect.gif");
+  z-index: 3;
+}
+
+.tooltip-web strong {
+  color: rgb(87, 159, 36);
+}
+
+.tooltip-tamara strong {
+  color: #d0b6f5;
+}
+
+.tooltip-developer strong {
+  color: #85b818;
+}
+
+.tooltip-istanbul strong {
+  color: rgb(65, 65, 148);
+}
+
+.tooltip-barcelona strong {
+  color: rgb(194, 79, 167);
+}
+
+.tooltip-fin strong {
+  color: #e86322;
+}
+
+.tooltip-joy strong {
+  color: #e8bd0f;
+}
+
+.tooltip-who strong {
+  color: #8755cd;
+}
+
+.tooltip-connect strong {
+  color: rgb(9, 144, 177);
 }
