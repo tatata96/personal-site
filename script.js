@@ -21,14 +21,14 @@ function headerMouseAnimation() {
   tl.play();
 }
 
-function descriptionAnimateOnLoad() {
-  const text = document.getElementById("text");
+function descriptionAnimateOnLoad(elementId) {
+  const text = document.getElementById(elementId);
 
   const mySplitText = new SplitType(text, {type: "words"});
 
   const splitTextTimeline = gsap.timeline();
 
-  gsap.set(text, {perspective: 400});
+  // gsap.set(text, {perspective: 400});
 
   mySplitText.split({type: "words"});
   mySplitText.words.forEach(function (el, index) {
@@ -169,7 +169,7 @@ function svgAnimations() {
         // });
 
         // Window
-        mapMouseXRotation(mouseX, pinkStarElement, 360);
+        mapMouseXRotation(mouseX, pinkStarElement, 180);
         mapMouseXColor(mouseX, pinkStarElement, "blue", 1);
 
         // Cloud
@@ -200,4 +200,11 @@ document.addEventListener("DOMContentLoaded", () => {
   svgAnimations();
   headerMouseAnimation();
   descriptionAnimateOnLoad();
+
+
+  descriptionAnimateOnLoad("text")
+  descriptionAnimateOnLoad("text2")
+  descriptionAnimateOnLoad("text3")
+
+
 });

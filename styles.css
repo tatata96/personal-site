@@ -5,6 +5,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "manrope";
+  src: url("/fonts/Manrope-Regular.ttf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -14,7 +21,7 @@
 html,
 body {
   background-color: rgb(255, 255, 255);
-  font-family: "Manrope", sans-serif;
+  font-family: "manrope";
   font-style: normal;
   font-optical-sizing: auto;
   text-align: justify;
@@ -57,7 +64,6 @@ strong {
   margin-top: 105px;
 
   color: rgb(0, 0, 0);
-  font-size: 70px;
   font-family: "Cheese-Shishi";
 }
 
@@ -73,20 +79,14 @@ strong {
 
 #title {
   font-size: 10vw;
-
-  /* outline: 3px solid red; */
-}
-
-#text-wrapper {
-  background-color: rgb(255, 255, 255);
-  width: 65%;
 }
 
 #text {
-  font-size: 20px;
-  line-height: 28px;
+  margin: 0 200px;
   color: #000000;
 
+  font-size: 22px;
+  line-height: 28px;
   /* outline: 3px solid red; */
 }
 
@@ -169,4 +169,8 @@ span {
   height: 100px;
 
   background-image: url("./media/description/web-gif.gif");
+}
+
+.tooltip-web strong{
+  color: rgb(236, 162, 219);
 }
