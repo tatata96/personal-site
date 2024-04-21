@@ -88,11 +88,37 @@ function mapMouseYTranslate(mouseX, svgElement) {
   }
 }
 
-function mapMouseXColor(mouseX, svgElement, color1, color2, duration) {
-  const color = mouseX < window.innerWidth / 2 ? color1 : color2;
+function stringToRgb(colorString) {
+  // Remove the hash (if any) from the color string
+  const color = colorString.replace("#", "");
+
+  // Convert the color string to an RGB object
+  const rgb = {
+    r: parseInt(color.substring(0, 2), 16),
+    g: parseInt(color.substring(2, 4), 16),
+    b: parseInt(color.substring(4, 6), 16),
+  };
+
+  return rgb;
+}
+
+function mapMouseXColor(x, svgElement, targetColor, duration) {
   if (svgElement) {
-    gsap.to(svgElement, duration, {
-      fill: color,
+    // Get the original color only if it's not already stored
+    if (!svgElement.originalColor) {
+      svgElement.originalColor = window.getComputedStyle(svgElement).fill;
+    }
+
+    // Calculate the new color based on the mouse position
+    const mouseX = x;
+    const newColor =
+      mouseX < window.innerWidth / 2 ? svgElement.originalColor : targetColor;
+
+    gsap.to(svgElement, {
+      duration: duration,
+      attr: {fill: newColor}, // Animate the fill attribute
+      stroke: "black",
+      ease: "linear",
     });
   }
 }
@@ -103,7 +129,6 @@ function svgAnimations() {
   svgs.forEach((svg) => {
     svg.onload = () => {
       const svgDoc = svg.contentDocument;
-
       // Window
       const pinkStarElement = svgDoc.getElementById("pink-star");
 
@@ -124,11 +149,28 @@ function svgAnimations() {
       // You Do You
       const youDoYouSticker = svgDoc.getElementById("badge-you");
 
+      const paths = svgDoc.querySelectorAll("path");
+      const circles = svgDoc.querySelectorAll("circle");
+      const rects = svgDoc.querySelectorAll("rect");
+
       window.addEventListener("mousemove", (e) => {
         const mouseX = e.pageX;
+
+        // paths.forEach((path) => {
+        //   mapMouseXColor(mouseX, path, "white", 0.5);
+        // });
+
+        // circles.forEach((path) => {
+        //   mapMouseXColor(mouseX, path, "white",  0.5);
+        // });
+
+        // rects.forEach((path) => {
+        //   mapMouseXColor(mouseX, path, "white",  0.5);
+        // });
+
         // Window
         mapMouseXRotation(mouseX, pinkStarElement, 360);
-        mapMouseXColor(mouseX, pinkStarElement, "#FF00FF", "blue", 4);
+        mapMouseXColor(mouseX, pinkStarElement, "blue", 1);
 
         // Cloud
         mapMouseXScale(mouseX, greenCloud);

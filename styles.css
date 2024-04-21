@@ -130,13 +130,12 @@ span {
 }
 
 /* Tooltip container */
-.tooltip-1-link {
+.tooltip-link {
   position: relative;
-  color: blue;
 }
 
 /* Tooltip background */
-.tooltip-1-link::after {
+.tooltip-link::after {
   content: "";
   position: absolute;
   bottom: calc(100% + 10px);
@@ -150,13 +149,24 @@ span {
   display: none;
 }
 
-.tooltip-1-link:hover::after {
+.tooltip-link:hover::after {
   display: block;
 }
 
-.tooltip-1-link .tooltip-1 img {
+.tooltip-link .tooltip img {
   display: none;
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+.tooltip-1-link::after {
+  background-image: url("title.svg");
+}
+
+.tooltip-web::after {
+  width: 100px;
+  height: 100px;
+
+  background-image: url("./media/description/web-gif.gif");
 }
