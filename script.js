@@ -131,6 +131,7 @@ function svgAnimations() {
       const svgDoc = svg.contentDocument;
       // Window
       const pinkStarElement = svgDoc.getElementById("pink-star");
+      const windowSvg = svgDoc.getElementById("window");
 
       // Cloud
       const greenCloud = svgDoc.getElementById("green-cloud");
@@ -170,6 +171,8 @@ function svgAnimations() {
 
         // Window
         mapMouseXRotation(mouseX, pinkStarElement, 180);
+        mapMouseXRotation(mouseX, windowSvg, 30);
+
         mapMouseXColor(mouseX, pinkStarElement, "blue", 1);
 
         // Cloud
