@@ -10,8 +10,6 @@ function headerMouseAnimation() {
       mouseX
     );
 
-    console.log(lineHeight);
-    console.log(document.querySelector("#title"));
     document.querySelector("#title").style.letterSpacing = lineHeight + "px";
   }
 
@@ -47,30 +45,97 @@ function descriptionAnimateOnLoad() {
   });
 }
 
-function changeSVGColors() {
-  const svg = document.querySelector(".svg");
+function mapMouseXRotation(mouseX, svgElement, rotationValue) {
+  const rotation = gsap.utils.mapRange(
+    0,
+    window.innerWidth,
+    0,
+    rotationValue,
+    mouseX
+  );
+  if (svgElement) {
+    gsap.to(svgElement, 2, {
+      rotation: rotation,
+      // scale: 1.5,
+      transformOrigin: "50% 50%",
+      ease: "back.out(1.7)",
+    });
+  }
+}
 
-  svg.onload = function () {
-    const svgDoc = svg.contentDocument;
-    const windowElement = svgDoc.getElementById("window");
-    const pinkStarElement = svgDoc.getElementById("pink-star");
+function mapMouseXScale(mouseX, svgElement) {
+  const scaleValue = gsap.utils.mapRange(0, window.innerWidth, 0.8, 1, mouseX);
+  if (svgElement) {
+    gsap.to(svgElement, 2, {
+      scale: scaleValue,
+      transformOrigin: "50% 50%",
+    });
+  }
+}
 
-    if (windowElement) {
-      windowElement.setAttribute("fill", "blue");
-    }
-
-    if (pinkStarElement) {
-      pinkStarElement.setAttribute("fill", "red");
-    }
-  };
+function mapMouseYTranslate(mouseX, svgElement) {
+  const translateValue = gsap.utils.mapRange(
+    0,
+    window.innerWidth,
+    0,
+    100,
+    mouseX
+  );
+  if (svgElement) {
+    gsap.to(svgElement, 2, {
+      y: -translateValue,
+      transformOrigin: "50% 50%",
+    });
+  }
 }
 
 function svgAnimations() {
-  changeSVGColors();
+  const svgs = document.querySelectorAll(".svg");
+
+  svgs.forEach((svg) => {
+    svg.onload = () => {
+      const svgDoc = svg.contentDocument;
+      const pinkStarElement = svgDoc.getElementById("pink-star");
+      const nowIsOurTimeBadge = svgDoc.getElementById("okay-sticker");
+      const youDoYouSticker = svgDoc.getElementById("badge-you");
+
+
+      //cloud
+      const greenCloud = svgDoc.getElementById("green-cloud");
+      const greenCloudLeftEye = svgDoc.getElementById("left-eye");
+      const greenCloudRightEye = svgDoc.getElementById("right-eye");
+
+      // peace-badge
+      const peaceBadge = svgDoc.getElementById("peace-badge");
+      const peaceBadgeBanner = svgDoc.getElementById("u-are-text-banner");
+      const sparkle = svgDoc.getElementById("big-sparkle");
+
+
+      const stick = svgDoc.getElementById("stick");
+
+      window.addEventListener("mousemove", (e) => {
+        const mouseX = e.pageX;
+        mapMouseXRotation(mouseX, pinkStarElement, 360);
+        mapMouseXRotation(mouseX, youDoYouSticker, -360);
+        mapMouseXRotation(mouseX, nowIsOurTimeBadge, -30);
+        mapMouseXRotation(mouseX, greenCloudLeftEye, 90);
+        mapMouseXRotation(mouseX, greenCloudRightEye, 90);
+        mapMouseXRotation(mouseX, peaceBadge, -24);
+        mapMouseXRotation(mouseX, peaceBadgeBanner, 24);
+
+        mapMouseXScale(mouseX, greenCloud);
+        mapMouseXRotation(mouseX, sparkle, 270);
+        mapMouseXScale(mouseX, sparkle);
+
+        mapMouseXScale(mouseX, stick);
+        mapMouseYTranslate(mouseX, stick);
+      });
+    };
+  });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   svgAnimations();
-  headerMouseAnimation()
+  headerMouseAnimation();
   descriptionAnimateOnLoad();
 });
