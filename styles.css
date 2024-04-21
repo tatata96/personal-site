@@ -68,8 +68,8 @@ strong {
 }
 
 #title {
-  font-size: 10vw;
-  transition: all 1s cubic-bezier(0.3, 1.7, 0.7, 0.9) ;
+  font-size: 150px;
+  transition: all 1s cubic-bezier(0.3, 1.7, 0.7, 0.9);
   animation: customBackOut 0.7s cubic-bezier(0.3, 2, 0.7, 0.8) forwards;
 }
 
@@ -94,7 +94,7 @@ strong {
   color: #000000;
 
   font-size: 22px;
-  line-height:28px;
+  line-height: 28px;
   /* outline: 3px solid red; */
 }
 
@@ -174,7 +174,6 @@ span {
 }
 
 .tooltip-web::after {
-
   bottom: calc(-800%);
   left: 90%;
 
@@ -216,7 +215,6 @@ span {
 }
 
 .tooltip-who::after {
-
   background-image: url("./media/description/who.gif");
   z-index: 3;
 }
@@ -262,4 +260,61 @@ span {
 
 .tooltip-connect strong {
   color: rgb(9, 144, 177);
+}
+
+@media only screen and (max-width: 790px) {
+  #text {
+    font-size: 20px;
+    line-height: 26px;
+  }
+
+  #title {
+    font-size: 120px;
+  }
+}
+
+/* Small screens */
+@media only screen and (max-width: 493px) {
+  .header {
+    margin-top: 0px;
+    align-self: end;
+  }
+
+  body {
+    grid-template-rows: 1fr 2fr auto;
+  }
+
+  #text {
+    font-size: 18px;
+    line-height: 22px;
+    width: 80%;
+  }
+
+  #title {
+    font-size: 70px;
+  }
+
+  .collage {
+    margin-top: -27px;
+    flex-direction: column-reverse;
+    align-self: end;
+  }
+
+  .collage-row-2 {
+    margin-top: -66px;
+  }
+
+  .svg-wrapper {
+    width: 140px;
+    height: 100%;
+  }
+
+  .collage-row-1 {
+    margin-top: 0;
+    order: 2;
+  }
+
+  .svg-wrapper-2 {
+    order: 1;
+  }
 }
