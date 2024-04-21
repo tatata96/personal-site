@@ -7,42 +7,70 @@
 
   <title>t!</title>
   <link rel="icon" type="image/x-icon" href="/title.svg">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" type="text/css" href="style.css">
-
   <script src="libraries/p5.min.js"></script>
-  <script src="libraries/p5.sound.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 
 <body>
-  <div class="info-container">
-    <div class="info">
-      <span class="title">who am I<br></span>
-      <p> Welcome to my corner of the web. This is Tamara. I am frontend developer, eager to explore the endless
-        possibilities of merging code with creativity in design. Currently residing in Barcelona.</p>
-    </div>
+  <div class="header">
+    <h2 id="title">TAMARA</h2>
+  </div>
 
-    <div class="bottom">
-      <div class="info">
-        <span class="title">what I offer<br></span>
-        <p> Websites and modern web apps designed to bring joy. A dedication to thoughtful design concepts and
-          future-proof development with lots of love. </p> 
-      </div>
+  <div id="text-wrapper">
+    <div id="text">SplitText now supports
+      <strong>nested tags</strong> like
+      <a href="#" class="tooltip-1-link" data-image="path/to/image.jpg">Hover over me
+        <div class="tooltip-1"><img src="title.svg"" alt=" Tooltip Image"></div>
+      </a>
 
-      <div class="links">
-        <a href="mailto:tamarakozok@gmail.com" class="email" target="_blank" rel="noreferrer">tamarakozok@gmail.com</a>
-        <a href="https://www.linkedin.com/in/tamara-kozok-3810a8162/" class="linkedin" target="_blank"
-          rel="noreferrer">linkedin</a>
-        <a href="https://github.com/tatata96" class="github" target="_blank" rel="noreferrer">github</a>
-      </div>
+      <span class="code">&lt;span&gt;</span>,
+      <span class="code">&lt;strong&gt;</span>, and
+      <span class="code">&lt;em&gt;</span>. Want to preserve a link?
+      <a href="https://www.greensock.com" target="_blank">No problem</a>.
+      You can even <em>GO NUTS with EMOJI</em> 🐳 🍔 ❤️
 
+      <a href="#" class="tooltip-1-link ass" data-image="path/to/image.jpg">Hover over me
+        <div class="tooltip-1 ss"><img src="title.svg"" alt=" Tooltip Image"></div>
+      </a>
     </div>
   </div>
-  <script src="sketch2.js"></script>
+
+  <div class="collage">
+    <div class="collage-row">
+      <div class="svg-wrapper svg-wrapper-1">
+        <img class="svg" src="./media/collage/window.svg" />
+      </div>
+
+      <div class="svg-wrapper svg-wrapper-2">
+        <img class="svg" src="./media/collage/green-cloud.svg" />
+      </div>
+
+      <div class="svg-wrapper svg-wrapper-3">
+        <img class="svg" src="./media/collage/peace-with-sparkle.svg" />
+      </div>
+
+    </div>
+
+    <div class="collage-row">
+
+      <div class="svg-wrapper svg-wrapper-4">
+        <img class="svg" src="./media/collage/palm-sticker.svg" />
+      </div>
+
+      <div class="svg-wrapper svg-wrapper-5">
+        <img class="svg" src="./media/collage/you-do-you-badge.svg" />
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <script src="./libraries/gsap.min.js"></script>
+  <script src="./libraries/text-plugin-gsap.min.js"></script>
+  <script src="./libraries/split-type"></script>
+  <script src="script.js"></script>
+
 </body>
 
 </html>

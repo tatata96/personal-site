@@ -1,0 +1,158 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background-color: rgb(255, 255, 255);
+  font-family: "Manrope", sans-serif;
+  font-style: normal;
+  font-optical-sizing: auto;
+  text-align: justify;
+
+  margin: 0;
+  padding: 0;
+  height: 100%;
+
+  box-sizing: border-box;
+
+  /* overflow: hidden; */
+}
+
+body {
+  /* display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  gap: 34px; */
+
+  display: grid;
+  grid-template-rows: auto auto auto; /* Define three rows */
+  gap: 10px; /* Set gap between grid items */
+  justify-items: center;
+
+  outline: 3px solid blue;
+
+  height: 100%;
+}
+
+body div {
+  align-self: center;
+}
+
+strong {
+  color: orange;
+}
+
+.header {
+  margin-top: 105px;
+
+  color: rgb(0, 0, 0);
+  font-size: 70px;
+  font-family: "KeeponTruckin", sans-serif;
+}
+
+.highlight {
+  color: red;
+  font-family: serif;
+}
+
+.code {
+  font-family: Courier;
+  color: rgb(221, 202, 126);
+}
+
+#title {
+  font-size: 10vw;
+
+  outline: 3px solid red;
+}
+
+#text-wrapper {
+  background-color: rgb(255, 255, 255);
+  width: 65%;
+}
+
+#text {
+  font-size: 24px;
+  line-height:33px;
+  color: #000000;
+
+  outline: 3px solid red;
+}
+
+a:visited,
+a:link,
+a:active {
+  color: #87cd02;
+  text-decoration: none;
+  display: inline-block;
+}
+
+a:hover {
+  background-color: #87cd02;
+  color: white;
+}
+
+span {
+  display: inline-block;
+}
+
+.collage {
+  display: flex;
+
+}
+
+.svg-wrapper {
+  height: 100%;
+  resize: both;
+  overflow: auto;
+  outline: 1px dashed #c91515;
+  grid-row: 1;
+
+}
+
+.svg {
+  width: 100%;
+  resize: both;
+  overflow: auto;
+}
+
+.collage-row {
+  display: inline-flex;
+}
+
+
+/* Tooltip container */
+.tooltip-1-link {
+  position: relative;
+  color: blue;
+}
+
+/* Tooltip background */
+.tooltip-1-link::after {
+  content: "";
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 90%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 200px;
+  background-image: url("title.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  display: none;
+}
+
+.tooltip-1-link:hover::after {
+  display: block;
+}
+
+.tooltip-1-link .tooltip-1 img {
+  display: none;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
