@@ -12,6 +12,20 @@
   font-style: normal;
 }
 
+:root {
+  --color-green: rgb(87, 159, 36);
+  --color-yellow: #e8bd0f;
+  --color-pink: #e386d2;
+  --color-orange: #e86322;
+}
+
+:root.dark-theme {
+  --color-green: rgb(140, 187, 39);
+  --color-yellow: #e8bd0f;
+  --color-pink: blue;
+  --color-orange: rgb(232, 189, 15);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -226,40 +240,40 @@ span {
   z-index: 3;
 }
 
+.tooltip strong {
+  transition: color 0.3s ease-in-out;
+}
+
 .tooltip-web strong {
-  color: rgb(87, 159, 36);
+  color: var(--color-orange);
 }
 
 .tooltip-tamara strong {
-  color: #d0b6f5;
+  color: var(--color-yellow);
 }
 
 .tooltip-developer strong {
-  color: #85b818;
+  color: var(--color-pink);
 }
 
 .tooltip-istanbul strong {
-  color: rgb(65, 65, 148);
+  color: var(--color-pink);
 }
 
 .tooltip-barcelona strong {
-  color: rgb(194, 79, 167);
+  color: var(--color-green);
 }
 
 .tooltip-fin strong {
-  color: #e86322;
+  color: var(--color-orange);
 }
 
 .tooltip-joy strong {
-  color: #e8bd0f;
-}
-
-.tooltip-who strong {
-  color: #8755cd;
+  color: var(--color-yellow);
 }
 
 .tooltip-connect strong {
-  color: rgb(9, 144, 177);
+  color: var(--color-orange);
 }
 
 @media only screen and (max-width: 790px) {

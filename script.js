@@ -16,9 +16,41 @@ function headerMouseAnimation() {
   window.addEventListener("mousemove", (e) => {
     const mouseX = e.pageX;
     mapLineSpacing(mouseX);
+    changeThemeColor(mouseX, true);
   });
 
   tl.play();
+}
+
+// Original Colors
+const originalColors = {
+  "--color-green": "rgb(87, 159, 36)",
+  "--color-yellow": "#e8bd0f",
+  "--color-pink": "#e386d2",
+  "--color-orange": "#e86322",
+};
+
+function changeThemeColor(mouseX, darkTheme = false) {
+  const root = document.documentElement;
+
+  // Dark Theme Colors
+  const darkThemeColors = {
+    "--color-green": "rgb(140, 187, 39)",
+    "--color-yellow": "#e8bd0f",
+    "--color-pink": "blue",
+    "--color-orange": "rgb(232, 189, 15)",
+  };
+
+  // Get the target colors based on the theme
+  const targetColors = darkTheme ? darkThemeColors : originalColors;
+
+  // Iterate over colors and set new values based on mouse position
+  for (const [colorVar, colorValue] of Object.entries(targetColors)) {
+    const newColor =
+      mouseX < window.innerWidth / 1.4 ? originalColors[colorVar] : colorValue;
+
+    root.style.setProperty(colorVar, newColor);
+  }
 }
 
 function descriptionAnimateOnLoad(elementId) {
@@ -88,20 +120,6 @@ function mapMouseYTranslate(mouseX, svgElement) {
   }
 }
 
-function stringToRgb(colorString) {
-  // Remove the hash (if any) from the color string
-  const color = colorString.replace("#", "");
-
-  // Convert the color string to an RGB object
-  const rgb = {
-    r: parseInt(color.substring(0, 2), 16),
-    g: parseInt(color.substring(2, 4), 16),
-    b: parseInt(color.substring(4, 6), 16),
-  };
-
-  return rgb;
-}
-
 function mapMouseXColor(x, svgElement, targetColor) {
   if (svgElement) {
     // Get the original color only if it's not already stored
@@ -161,7 +179,6 @@ function svgAnimations() {
 
         mapMouseXColor(mouseX, pinkStarElement, "blue");
         mapMouseXColor(mouseX, bubblePlant, "#B7F631");
-
 
         // Cloud
         mapMouseXScale(mouseX, greenCloud);
