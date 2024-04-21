@@ -1,39 +1,76 @@
-// HEADER
-const tl = gsap.timeline();
+function headerMouseAnimation() {
+  const tl = gsap.timeline();
 
-function mapLineSpacing(mouseX) {
-  const lineHeight = gsap.utils.mapRange(0, window.innerWidth, 10, 100, mouseX);
-  console.log(lineHeight);
-  console.log(document.querySelector("#title"));
-  document.querySelector("#title").style.letterSpacing = lineHeight + "px";
+  function mapLineSpacing(mouseX) {
+    const lineHeight = gsap.utils.mapRange(
+      0,
+      window.innerWidth,
+      10,
+      100,
+      mouseX
+    );
+
+    console.log(lineHeight);
+    console.log(document.querySelector("#title"));
+    document.querySelector("#title").style.letterSpacing = lineHeight + "px";
+  }
+
+  window.addEventListener("mousemove", (e) => {
+    const mouseX = e.pageX;
+    mapLineSpacing(mouseX);
+  });
+
+  tl.play();
 }
 
-window.addEventListener("mousemove", (e) => {
-  const mouseX = e.pageX;
-  mapLineSpacing(mouseX);
-});
+function descriptionAnimateOnLoad() {
+  const text = document.getElementById("text");
 
-tl.play();
+  const mySplitText = new SplitType(text, {type: "words"});
 
-// text
-const text = document.getElementById("text");
+  const splitTextTimeline = gsap.timeline();
 
-const mySplitText = new SplitType(text, {type: "words"});
+  gsap.set(text, {perspective: 400});
 
-const splitTextTimeline = gsap.timeline();
+  mySplitText.split({type: "words"});
+  mySplitText.words.forEach(function (el, index) {
+    splitTextTimeline.from(
+      el,
+      {duration: 0.6, opacity: 0, force3D: true},
+      index * 0.01
+    );
+    splitTextTimeline.from(
+      el,
+      {duration: 0.6, scale: index % 2 == 0 ? 0 : 2},
+      index * 0.01
+    );
+  });
+}
 
-gsap.set(text, {perspective: 400});
+function changeSVGColors() {
+  const svg = document.querySelector(".svg");
 
-mySplitText.split({type: "words"});
-mySplitText.words.forEach(function (el, index) {
-  splitTextTimeline.from(
-    el,
-    {duration: 0.6, opacity: 0, force3D: true},
-    index * 0.01
-  );
-  splitTextTimeline.from(
-    el,
-    {duration: 0.6, scale: index % 2 == 0 ? 0 : 2},
-    index * 0.01
-  );
+  svg.onload = function () {
+    const svgDoc = svg.contentDocument;
+    const windowElement = svgDoc.getElementById("window");
+    const pinkStarElement = svgDoc.getElementById("pink-star");
+
+    if (windowElement) {
+      windowElement.setAttribute("fill", "blue");
+    }
+
+    if (pinkStarElement) {
+      pinkStarElement.setAttribute("fill", "red");
+    }
+  };
+}
+
+function svgAnimations() {
+  changeSVGColors();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  svgAnimations();
+  headerMouseAnimation()
+  descriptionAnimateOnLoad();
 });

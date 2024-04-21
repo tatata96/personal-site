@@ -1,3 +1,10 @@
+@font-face {
+  font-family: "Cheese-Shishi";
+  src: url("/fonts/Cheee-Shishi.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -51,7 +58,7 @@ strong {
 
   color: rgb(0, 0, 0);
   font-size: 70px;
-  font-family: "KeeponTruckin", sans-serif;
+  font-family: "Cheese-Shishi";
 }
 
 .highlight {
@@ -67,7 +74,7 @@ strong {
 #title {
   font-size: 10vw;
 
-  outline: 3px solid red;
+  /* outline: 3px solid red; */
 }
 
 #text-wrapper {
@@ -76,11 +83,11 @@ strong {
 }
 
 #text {
-  font-size: 24px;
-  line-height:33px;
+  font-size: 20px;
+  line-height: 28px;
   color: #000000;
 
-  outline: 3px solid red;
+  /* outline: 3px solid red; */
 }
 
 a:visited,
@@ -102,16 +109,14 @@ span {
 
 .collage {
   display: flex;
-
 }
 
 .svg-wrapper {
   height: 100%;
   resize: both;
   overflow: auto;
-  outline: 1px dashed #c91515;
+  /* outline: 1px dashed #c91515; */
   grid-row: 1;
-
 }
 
 .svg {
@@ -123,7 +128,6 @@ span {
 .collage-row {
   display: inline-flex;
 }
-
 
 /* Tooltip container */
 .tooltip-1-link {
