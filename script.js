@@ -56,7 +56,6 @@ function mapMouseXRotation(mouseX, svgElement, rotationValue) {
   if (svgElement) {
     gsap.to(svgElement, 2, {
       rotation: rotation,
-      // scale: 1.5,
       transformOrigin: "50% 50%",
       ease: "back.out(1.7)",
     });
@@ -89,46 +88,67 @@ function mapMouseYTranslate(mouseX, svgElement) {
   }
 }
 
+function mapMouseXColor(mouseX, svgElement, color1, color2, duration) {
+  const color = mouseX < window.innerWidth / 2 ? color1 : color2;
+  if (svgElement) {
+    gsap.to(svgElement, duration, {
+      fill: color,
+    });
+  }
+}
+
 function svgAnimations() {
   const svgs = document.querySelectorAll(".svg");
 
   svgs.forEach((svg) => {
     svg.onload = () => {
       const svgDoc = svg.contentDocument;
+
+      // Window
       const pinkStarElement = svgDoc.getElementById("pink-star");
-      const nowIsOurTimeBadge = svgDoc.getElementById("okay-sticker");
-      const youDoYouSticker = svgDoc.getElementById("badge-you");
 
-
-      //cloud
+      // Cloud
       const greenCloud = svgDoc.getElementById("green-cloud");
       const greenCloudLeftEye = svgDoc.getElementById("left-eye");
       const greenCloudRightEye = svgDoc.getElementById("right-eye");
+      const nowIsOurTimeBadge = svgDoc.getElementById("okay-sticker");
 
-      // peace-badge
+      // Peace Badge
       const peaceBadge = svgDoc.getElementById("peace-badge");
       const peaceBadgeBanner = svgDoc.getElementById("u-are-text-banner");
-      const sparkle = svgDoc.getElementById("big-sparkle");
+      const peaceBadgeSparkle = svgDoc.getElementById("big-sparkle");
 
+      // Palm tree get it together
+      const getItTogetherBadge = svgDoc.getElementById("get-it-together-badge");
 
-      const stick = svgDoc.getElementById("stick");
+      // You Do You
+      const youDoYouSticker = svgDoc.getElementById("badge-you");
 
       window.addEventListener("mousemove", (e) => {
         const mouseX = e.pageX;
+        // Window
         mapMouseXRotation(mouseX, pinkStarElement, 360);
-        mapMouseXRotation(mouseX, youDoYouSticker, -360);
-        mapMouseXRotation(mouseX, nowIsOurTimeBadge, -30);
+        mapMouseXColor(mouseX, pinkStarElement, "#FF00FF", "blue", 4);
+
+        // Cloud
+        mapMouseXScale(mouseX, greenCloud);
         mapMouseXRotation(mouseX, greenCloudLeftEye, 90);
         mapMouseXRotation(mouseX, greenCloudRightEye, 90);
+        mapMouseXRotation(mouseX, nowIsOurTimeBadge, -30);
+
+        // Peace Badge
         mapMouseXRotation(mouseX, peaceBadge, -24);
         mapMouseXRotation(mouseX, peaceBadgeBanner, 24);
 
-        mapMouseXScale(mouseX, greenCloud);
-        mapMouseXRotation(mouseX, sparkle, 270);
-        mapMouseXScale(mouseX, sparkle);
+        mapMouseXRotation(mouseX, peaceBadgeSparkle, 270);
+        mapMouseXScale(mouseX, peaceBadgeSparkle);
 
-        mapMouseXScale(mouseX, stick);
-        mapMouseYTranslate(mouseX, stick);
+        // Palm tree get it together
+        mapMouseXScale(mouseX, getItTogetherBadge);
+        mapMouseYTranslate(mouseX, getItTogetherBadge);
+
+        // You Do You
+        mapMouseXRotation(mouseX, youDoYouSticker, -360);
       });
     };
   });
