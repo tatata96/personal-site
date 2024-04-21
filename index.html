@@ -7,58 +7,76 @@
 
   <title>t!</title>
   <link rel="icon" type="image/x-icon" href="/title.svg">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lekton:ital,wght@0,400;0,700;1,400&display=swap"
-    rel="stylesheet">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Lekton:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
-    rel="stylesheet">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" type="text/css" href="style.css">
-
-  <script src="libraries/p5.min.js"></script>
-  <script src="libraries/p5.sound.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 
 <body>
-  <div class="bottom">
-    <div class="links-container">
-      <p>
-        <span class="title">{who am I}<br></span>
-        Welcome to my corner of the web. This is Tamara. I am frontend developer, eager to explore the endless
-        possibilities of merging code with creativity in design. Currently residing in Barcelona.
-      </p>
-    </div>
-
-    <div class="links">
-      <div class="link-row email">
-
-        <a href="mailto:tamarakozok@gmail.com" class="email" target="_blank" rel="noreferrer">tamarakozok@gmail.com</a>
-      </div>
-      <div class="link-row">
-        <a href="https://www.linkedin.com/in/tamara-kozok-3810a8162/" class="linkedin" target="_blank"
-          rel="noreferrer">linkedin</a>
-        <a href="https://github.com/tatata96" class="github" target="_blank" rel="noreferrer">github</a>
-      </div>
-    </div>
-
-    <p id="paragraph">
-      <span class="title">{what I offer}<br></span>
-      Websites and modern web apps designed to bring joy. A dedication to thoughtful design concepts and future-proof development with lots of love.
-    </p>
-
-
+  <div class="header">
+    <h2 id="title">TAMARA</h2>
   </div>
-  <script src="sketch.js"></script>
+
+  <div id="text">
+
+    Welcome to my corner of the <a href="#" class="tooltip-link tooltip-web"><strong>web.</strong>
+      <div class="tooltip"></div>
+    </a>This is <a href="#" class="tooltip-link tooltip-tamara"><strong>Tamara.</strong>
+      <div class="tooltip"></div>
+    </a> I am a <a href="#" class="tooltip-link tooltip-developer"><strong>frontend developer</strong>
+      <div class="tooltip"></div>
+    </a> born and raised in <a href="#" class="tooltip-link tooltip-istanbul"><strong>Istanbul</strong>
+      <div class="tooltip"></div>
+    </a>, currently residing in the beatiful city of <a href="#"
+      class="tooltip-link tooltip-barcelona"><strong>Barcelona</strong>
+      <div class="tooltip"></div>
+    </a>.
+    
+    <!-- I have been working in <a href="#" class="tooltip-link tooltip-fin"><strong>fin-tech</strong>
+      <div class="tooltip"></div>
+    </a>. -->
+
+    I am eager to explore the endless possibilities of merging code with creativity in design.I would like to
+    build websites and modern web apps that bring <a href="#" class="tooltip-link tooltip-joy"><strong>joy</strong>
+      <div class="tooltip"></div>
+    </a> and make people go <a href="#" class="tooltip-link tooltip-who"><em>who made that?</em>
+      <div class="tooltip"></div>
+    </a>.
+  </br>
+    <a href="#" class="tooltip-link tooltip-connect"><strong>Wanna connect? </strong>
+      <div class="tooltip"></div>
+    </a>
+  </div>
+
+  <div class="collage">
+    <div class="collage-row">
+      <div class="svg-wrapper svg-wrapper-1">
+        <object type="image/svg+xml" class="svg" data="./media/collage/window.svg"></object>
+      </div>
+
+      <div class="svg-wrapper svg-wrapper-2">
+        <object type="image/svg+xml" class="svg" data="./media/collage/green-cloud.svg"></object>
+
+      </div>
+
+      <div class="svg-wrapper svg-wrapper-3">
+        <object type="image/svg+xml" class="svg" data="./media/collage/peace-badge.svg"></object>
+      </div>
+    </div>
+
+    <div class="collage-row">
+      <div class="svg-wrapper svg-wrapper-4">
+        <object type="image/svg+xml" class="svg" data="./media/collage/palm-sticker.svg"></object>
+      </div>
+
+      <div class="svg-wrapper svg-wrapper-5">
+        <object type="image/svg+xml" class="svg" data="./media/collage/badge-you.svg"></object>
+      </div>
+    </div>
+  </div>
+
+  <script src="./libraries/gsap.min.js"></script>
+  <script src="./libraries/text-plugin-gsap.min.js"></script>
+  <script src="./libraries/split-type"></script>
+  <script src="script.js"></script>
 </body>
 
 </html>
