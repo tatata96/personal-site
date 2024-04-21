@@ -6,7 +6,7 @@ function headerMouseAnimation() {
       0,
       window.innerWidth,
       10,
-      100,
+      70,
       mouseX
     );
 
@@ -16,9 +16,41 @@ function headerMouseAnimation() {
   window.addEventListener("mousemove", (e) => {
     const mouseX = e.pageX;
     mapLineSpacing(mouseX);
+    changeThemeColor(mouseX, true);
   });
 
   tl.play();
+}
+
+// Original Colors
+const originalColors = {
+  "--color-green": "rgb(87, 159, 36)",
+  "--color-yellow": "#e8bd0f",
+  "--color-pink": "#e386d2",
+  "--color-orange": "#e86322",
+};
+
+function changeThemeColor(mouseX, darkTheme = false) {
+  const root = document.documentElement;
+
+  // Dark Theme Colors
+  const darkThemeColors = {
+    "--color-green": "rgb(140, 187, 39)",
+    "--color-yellow": "#e8bd0f",
+    "--color-pink": "blue",
+    "--color-orange": "rgb(232, 189, 15)",
+  };
+
+  // Get the target colors based on the theme
+  const targetColors = darkTheme ? darkThemeColors : originalColors;
+
+  // Iterate over colors and set new values based on mouse position
+  for (const [colorVar, colorValue] of Object.entries(targetColors)) {
+    const newColor =
+      mouseX < window.innerWidth / 1.4 ? originalColors[colorVar] : colorValue;
+
+    root.style.setProperty(colorVar, newColor);
+  }
 }
 
 function descriptionAnimateOnLoad(elementId) {
@@ -88,21 +120,7 @@ function mapMouseYTranslate(mouseX, svgElement) {
   }
 }
 
-function stringToRgb(colorString) {
-  // Remove the hash (if any) from the color string
-  const color = colorString.replace("#", "");
-
-  // Convert the color string to an RGB object
-  const rgb = {
-    r: parseInt(color.substring(0, 2), 16),
-    g: parseInt(color.substring(2, 4), 16),
-    b: parseInt(color.substring(4, 6), 16),
-  };
-
-  return rgb;
-}
-
-function mapMouseXColor(x, svgElement, targetColor, duration) {
+function mapMouseXColor(x, svgElement, targetColor) {
   if (svgElement) {
     // Get the original color only if it's not already stored
     if (!svgElement.originalColor) {
@@ -115,9 +133,8 @@ function mapMouseXColor(x, svgElement, targetColor, duration) {
       mouseX < window.innerWidth / 2 ? svgElement.originalColor : targetColor;
 
     gsap.to(svgElement, {
-      duration: duration,
+      duration: 0.5,
       attr: {fill: newColor}, // Animate the fill attribute
-      stroke: "black",
       ease: "linear",
     });
   }
@@ -132,6 +149,7 @@ function svgAnimations() {
       // Window
       const pinkStarElement = svgDoc.getElementById("pink-star");
       const windowSvg = svgDoc.getElementById("window");
+      const bubblePlant = svgDoc.getElementById("bubble-plant");
 
       // Cloud
       const greenCloud = svgDoc.getElementById("green-cloud");
@@ -146,34 +164,21 @@ function svgAnimations() {
 
       // Palm tree get it together
       const getItTogetherBadge = svgDoc.getElementById("get-it-together-badge");
+      const palmTree = svgDoc.getElementById("palm");
 
       // You Do You
       const youDoYouSticker = svgDoc.getElementById("badge-you");
-
-      // const paths = svgDoc.querySelectorAll("path");
-      // const circles = svgDoc.querySelectorAll("circle");
-      // const rects = svgDoc.querySelectorAll("rect");
+      const crossEyes = svgDoc.getElementById("cross-eyes");
 
       window.addEventListener("mousemove", (e) => {
         const mouseX = e.pageX;
-
-        // paths.forEach((path) => {
-        //   mapMouseXColor(mouseX, path, "white", 0.5);
-        // });
-
-        // circles.forEach((path) => {
-        //   mapMouseXColor(mouseX, path, "white",  0.5);
-        // });
-
-        // rects.forEach((path) => {
-        //   mapMouseXColor(mouseX, path, "white",  0.5);
-        // });
 
         // Window
         mapMouseXRotation(mouseX, pinkStarElement, 180);
         mapMouseXRotation(mouseX, windowSvg, 30);
 
-        mapMouseXColor(mouseX, pinkStarElement, "blue", 1);
+        mapMouseXColor(mouseX, pinkStarElement, "blue");
+        mapMouseXColor(mouseX, bubblePlant, "#B7F631");
 
         // Cloud
         mapMouseXScale(mouseX, greenCloud);
@@ -191,9 +196,11 @@ function svgAnimations() {
         // Palm tree get it together
         mapMouseXScale(mouseX, getItTogetherBadge);
         mapMouseYTranslate(mouseX, getItTogetherBadge);
+        mapMouseXColor(mouseX, palmTree, "blue");
 
         // You Do You
         mapMouseXRotation(mouseX, youDoYouSticker, -360);
+        mapMouseXColor(mouseX, crossEyes, "blue");
       });
     };
   });

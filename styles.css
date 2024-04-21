@@ -12,6 +12,20 @@
   font-style: normal;
 }
 
+:root {
+  --color-green: rgb(87, 159, 36);
+  --color-yellow: #e8bd0f;
+  --color-pink: #e386d2;
+  --color-orange: #e86322;
+}
+
+:root.dark-theme {
+  --color-green: rgb(140, 187, 39);
+  --color-yellow: #e8bd0f;
+  --color-pink: blue;
+  --color-orange: rgb(232, 189, 15);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -68,7 +82,24 @@ strong {
 }
 
 #title {
-  font-size: 10vw;
+  font-size: 150px;
+  transition: all 1s cubic-bezier(0.3, 1.7, 0.7, 0.9);
+  animation: customBackOut 0.7s cubic-bezier(0.3, 2, 0.7, 0.8) forwards;
+}
+
+@keyframes customBackOut {
+  0% {
+    transform: scaleX(1) translateX(0);
+  }
+  30% {
+    transform: scaleX(1.2) translateX(10px);
+  }
+  70% {
+    transform: scaleX(0.9) translateX(-10px);
+  }
+  100% {
+    transform: scaleX(1) translateX(0);
+  }
 }
 
 #text {
@@ -77,7 +108,7 @@ strong {
   color: #000000;
 
   font-size: 22px;
-  line-height:28px;
+  line-height: 28px;
   /* outline: 3px solid red; */
 }
 
@@ -157,10 +188,7 @@ span {
 }
 
 .tooltip-web::after {
-  width: 100px;
-  height: 100px;
-
-  bottom: calc(100%);
+  bottom: calc(-800%);
   left: 90%;
 
   background-image: url("./media/description/web-gif.gif");
@@ -178,7 +206,7 @@ span {
 }
 
 .tooltip-barcelona::after {
-  bottom: calc(100%);
+  bottom: calc(-900%);
   left: 90%;
 
   background-image: url("./media/description/barcelona.gif");
@@ -193,61 +221,114 @@ span {
 }
 
 .tooltip-joy::after {
-  bottom: calc(100%);
-  left: 90%;
+  bottom: calc(200%);
+  left: 100%;
 
   background-image: url("./media/description/joy.gif");
   z-index: 3;
 }
 
 .tooltip-who::after {
-  left: 90%;
-
   background-image: url("./media/description/who.gif");
   z-index: 3;
 }
 
 .tooltip-connect::after {
-  bottom: calc(100%);
-
-  left: 0;
+  bottom: calc(200%);
 
   background-image: url("./media/description/connect.gif");
   z-index: 3;
 }
 
+.tooltip strong {
+  transition: color 0.3s ease-in-out;
+}
+
 .tooltip-web strong {
-  color: rgb(87, 159, 36);
+  color: var(--color-orange);
 }
 
 .tooltip-tamara strong {
-  color: #d0b6f5;
+  color: var(--color-yellow);
 }
 
 .tooltip-developer strong {
-  color: #85b818;
+  color: var(--color-pink);
 }
 
 .tooltip-istanbul strong {
-  color: rgb(65, 65, 148);
+  color: var(--color-pink);
 }
 
 .tooltip-barcelona strong {
-  color: rgb(194, 79, 167);
+  color: var(--color-green);
 }
 
 .tooltip-fin strong {
-  color: #e86322;
+  color: var(--color-orange);
 }
 
 .tooltip-joy strong {
-  color: #e8bd0f;
-}
-
-.tooltip-who strong {
-  color: #8755cd;
+  color: var(--color-yellow);
 }
 
 .tooltip-connect strong {
-  color: rgb(9, 144, 177);
+  color: var(--color-orange);
+}
+
+@media only screen and (max-width: 790px) {
+  #text {
+    font-size: 20px;
+    line-height: 26px;
+  }
+
+  #title {
+    font-size: 120px;
+  }
+}
+
+/* Small screens */
+@media only screen and (max-width: 493px) {
+  .header {
+    margin-top: 0px;
+    align-self: end;
+  }
+
+  body {
+    grid-template-rows: 1fr 2fr auto;
+  }
+
+  #text {
+    font-size: 18px;
+    line-height: 22px;
+    width: 80%;
+  }
+
+  #title {
+    font-size: 70px;
+  }
+
+  .collage {
+    margin-top: -27px;
+    flex-direction: column-reverse;
+    align-self: end;
+  }
+
+  .collage-row-2 {
+    margin-top: -66px;
+  }
+
+  .svg-wrapper {
+    width: 140px;
+    height: 100%;
+  }
+
+  .collage-row-1 {
+    margin-top: 0;
+    order: 2;
+  }
+
+  .svg-wrapper-2 {
+    order: 1;
+  }
 }
