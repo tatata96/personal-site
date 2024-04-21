@@ -69,6 +69,23 @@ strong {
 
 #title {
   font-size: 10vw;
+  transition: all 1s cubic-bezier(0.3, 1.7, 0.7, 0.9) ;
+  animation: customBackOut 0.7s cubic-bezier(0.3, 2, 0.7, 0.8) forwards;
+}
+
+@keyframes customBackOut {
+  0% {
+    transform: scaleX(1) translateX(0);
+  }
+  30% {
+    transform: scaleX(1.2) translateX(10px);
+  }
+  70% {
+    transform: scaleX(0.9) translateX(-10px);
+  }
+  100% {
+    transform: scaleX(1) translateX(0);
+  }
 }
 
 #text {
@@ -157,10 +174,8 @@ span {
 }
 
 .tooltip-web::after {
-  width: 100px;
-  height: 100px;
 
-  bottom: calc(100%);
+  bottom: calc(-800%);
   left: 90%;
 
   background-image: url("./media/description/web-gif.gif");
@@ -178,7 +193,7 @@ span {
 }
 
 .tooltip-barcelona::after {
-  bottom: calc(100%);
+  bottom: calc(-900%);
   left: 90%;
 
   background-image: url("./media/description/barcelona.gif");
@@ -193,24 +208,21 @@ span {
 }
 
 .tooltip-joy::after {
-  bottom: calc(100%);
-  left: 90%;
+  bottom: calc(200%);
+  left: 100%;
 
   background-image: url("./media/description/joy.gif");
   z-index: 3;
 }
 
 .tooltip-who::after {
-  left: 90%;
 
   background-image: url("./media/description/who.gif");
   z-index: 3;
 }
 
 .tooltip-connect::after {
-  bottom: calc(100%);
-
-  left: 0;
+  bottom: calc(200%);
 
   background-image: url("./media/description/connect.gif");
   z-index: 3;

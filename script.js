@@ -6,7 +6,7 @@ function headerMouseAnimation() {
       0,
       window.innerWidth,
       10,
-      100,
+      70,
       mouseX
     );
 
@@ -102,7 +102,7 @@ function stringToRgb(colorString) {
   return rgb;
 }
 
-function mapMouseXColor(x, svgElement, targetColor, duration) {
+function mapMouseXColor(x, svgElement, targetColor) {
   if (svgElement) {
     // Get the original color only if it's not already stored
     if (!svgElement.originalColor) {
@@ -115,9 +115,8 @@ function mapMouseXColor(x, svgElement, targetColor, duration) {
       mouseX < window.innerWidth / 2 ? svgElement.originalColor : targetColor;
 
     gsap.to(svgElement, {
-      duration: duration,
+      duration: 0.5,
       attr: {fill: newColor}, // Animate the fill attribute
-      stroke: "black",
       ease: "linear",
     });
   }
@@ -132,6 +131,7 @@ function svgAnimations() {
       // Window
       const pinkStarElement = svgDoc.getElementById("pink-star");
       const windowSvg = svgDoc.getElementById("window");
+      const bubblePlant = svgDoc.getElementById("bubble-plant");
 
       // Cloud
       const greenCloud = svgDoc.getElementById("green-cloud");
@@ -146,34 +146,22 @@ function svgAnimations() {
 
       // Palm tree get it together
       const getItTogetherBadge = svgDoc.getElementById("get-it-together-badge");
+      const palmTree = svgDoc.getElementById("palm");
 
       // You Do You
       const youDoYouSticker = svgDoc.getElementById("badge-you");
-
-      // const paths = svgDoc.querySelectorAll("path");
-      // const circles = svgDoc.querySelectorAll("circle");
-      // const rects = svgDoc.querySelectorAll("rect");
+      const crossEyes = svgDoc.getElementById("cross-eyes");
 
       window.addEventListener("mousemove", (e) => {
         const mouseX = e.pageX;
-
-        // paths.forEach((path) => {
-        //   mapMouseXColor(mouseX, path, "white", 0.5);
-        // });
-
-        // circles.forEach((path) => {
-        //   mapMouseXColor(mouseX, path, "white",  0.5);
-        // });
-
-        // rects.forEach((path) => {
-        //   mapMouseXColor(mouseX, path, "white",  0.5);
-        // });
 
         // Window
         mapMouseXRotation(mouseX, pinkStarElement, 180);
         mapMouseXRotation(mouseX, windowSvg, 30);
 
-        mapMouseXColor(mouseX, pinkStarElement, "blue", 1);
+        mapMouseXColor(mouseX, pinkStarElement, "blue");
+        mapMouseXColor(mouseX, bubblePlant, "#B7F631");
+
 
         // Cloud
         mapMouseXScale(mouseX, greenCloud);
@@ -191,9 +179,11 @@ function svgAnimations() {
         // Palm tree get it together
         mapMouseXScale(mouseX, getItTogetherBadge);
         mapMouseYTranslate(mouseX, getItTogetherBadge);
+        mapMouseXColor(mouseX, palmTree, "blue");
 
         // You Do You
         mapMouseXRotation(mouseX, youDoYouSticker, -360);
+        mapMouseXColor(mouseX, crossEyes, "blue");
       });
     };
   });
