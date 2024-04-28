@@ -5,8 +5,8 @@ function headerMouseAnimation() {
     const lineHeight = gsap.utils.mapRange(
       0,
       window.innerWidth,
-      10,
-      70,
+      1,
+      window.innerWidth / 20,
       mouseX
     );
 
@@ -16,42 +16,84 @@ function headerMouseAnimation() {
   window.addEventListener("mousemove", (e) => {
     const mouseX = e.pageX;
     mapLineSpacing(mouseX);
-    changeThemeColor(mouseX, true);
+    // changeThemeColor(mouseX, true);
   });
 
   tl.play();
 }
 
-// Original Colors
-const originalColors = {
-  "--color-green": "rgb(87, 159, 36)",
-  "--color-yellow": "#e8bd0f",
-  "--color-pink": "#e386d2",
-  "--color-orange": "#e86322",
-};
-
-function changeThemeColor(mouseX, darkTheme = false) {
-  const root = document.documentElement;
-
-  // Dark Theme Colors
-  const darkThemeColors = {
-    "--color-green": "rgb(140, 187, 39)",
-    "--color-yellow": "#e8bd0f",
-    "--color-pink": "blue",
-    "--color-orange": "rgb(232, 189, 15)",
-  };
-
-  // Get the target colors based on the theme
-  const targetColors = darkTheme ? darkThemeColors : originalColors;
-
-  // Iterate over colors and set new values based on mouse position
-  for (const [colorVar, colorValue] of Object.entries(targetColors)) {
-    const newColor =
-      mouseX < window.innerWidth / 1.4 ? originalColors[colorVar] : colorValue;
-
-    root.style.setProperty(colorVar, newColor);
-  }
+function splitTextAnimation() {
+  gsap.to(".header div h2", {
+    y: 0,
+    stagger: 0.05,
+    delay: 0.3,
+    duration: 0.1,
+    onStart: () => {
+      if (document.querySelector(".header").classList.contains("hidden")) {
+        document.querySelector(".header").classList.remove("hidden");
+      } else {
+        console.log("hidden")
+        document.querySelector(".header").classList.add("hidden");
+      }
+    }
+  });
 }
+
+function animateHeader() {
+  const cheeseFont = "Cheese-Shishi";
+  const manropeFont = "BlackFriday";
+  const xcompany = "xcompany";
+  const strezy = "strezy";
+
+  // Define the timeline
+  const tl = gsap.timeline({repeat: -1});
+
+  // Animation function
+  function animateFont() {
+    tl.to(".header-a", {duration: 1, fontFamily: cheeseFont})
+      .to(".header-a", {duration: 1, fontFamily: manropeFont})
+      .to(".header-other", {duration: 1, fontFamily: cheeseFont})
+      .to(".header-other", {duration: 1, fontFamily: xcompany})
+      .to(".header-a", {duration: 1, fontFamily: manropeFont})
+      .to(".header-a", {duration: 1, fontFamily: strezy})
+      .to(".header-other", {duration: 1, fontFamily: xcompany})
+  }
+
+  splitTextAnimation();
+  // Call the animation function
+  animateFont();
+}
+
+// Original Colors
+// const originalColors = {
+//   "--color-green": "rgb(87, 159, 36)",
+//   "--color-yellow": "#e8bd0f",
+//   "--color-pink": "#e386d2",
+//   "--color-orange": "#e86322",
+// };
+
+// function changeThemeColor(mouseX, darkTheme = false) {
+//   const root = document.documentElement;
+
+//   // Dark Theme Colors
+//   const darkThemeColors = {
+//     "--color-green": "rgb(140, 187, 39)",
+//     "--color-yellow": "#e8bd0f",
+//     "--color-pink": "blue",
+//     "--color-orange": "rgb(232, 189, 15)",
+//   };
+
+//   // Get the target colors based on the theme
+//   const targetColors = darkTheme ? darkThemeColors : originalColors;
+
+//   // Iterate over colors and set new values based on mouse position
+//   for (const [colorVar, colorValue] of Object.entries(targetColors)) {
+//     const newColor =
+//       mouseX < window.innerWidth / 1.4 ? originalColors[colorVar] : colorValue;
+
+//     root.style.setProperty(colorVar, newColor);
+//   }
+// }
 
 function descriptionAnimateOnLoad(elementId) {
   const text = document.getElementById(elementId);
@@ -208,7 +250,8 @@ function svgAnimations() {
 
 document.addEventListener("DOMContentLoaded", () => {
   svgAnimations();
-  headerMouseAnimation();
+  // headerMouseAnimation();
+  animateHeader();
 
   // descriptionAnimateOnLoad("text")
 });

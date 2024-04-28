@@ -12,11 +12,39 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "BlackFriday";
+  src: url("/fonts/BlackFriday.ttf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "xcompany";
+  src: url("/fonts/xcompany.ttf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Aloevera";
+  src: url("/fonts/Aloevera.ttf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "strezy";
+  src: url("/fonts/strezy.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   --color-green: rgb(87, 159, 36);
   --color-yellow: #e8bd0f;
-  --color-pink: #e386d2;
-  --color-orange: #e86322;
+  --color-pink: #e8bd0f;
+  --color-orange: #986fc1;
 }
 
 :root.dark-theme {
@@ -34,7 +62,6 @@
 
 html,
 body {
-  background-color: rgb(255, 255, 255);
   font-family: "manrope";
   font-style: normal;
   font-optical-sizing: auto;
@@ -50,20 +77,16 @@ body {
 }
 
 body {
-  /* display: flex;
+  display: flex;
   flex-direction: column;
+  gap: 10px;
   justify-content: space-around;
-  align-items: center;
-  gap: 34px; */
 
-  display: grid;
-  grid-template-rows: auto auto auto; /* Define three rows */
-  gap: 10px; /* Set gap between grid items */
-  justify-items: center;
-
-  outline: 3px solid blue;
+  /* outline: 3px solid blue; */
 
   height: 100%;
+
+  margin: 80px;
 }
 
 body div {
@@ -75,41 +98,33 @@ strong {
 }
 
 .header {
-  margin-top: 105px;
-
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
   color: rgb(0, 0, 0);
   font-family: "Cheese-Shishi";
+
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
 }
 
-#title {
-  font-size: 150px;
-  transition: all 1s cubic-bezier(0.3, 1.7, 0.7, 0.9);
-  animation: customBackOut 0.7s cubic-bezier(0.3, 2, 0.7, 0.8) forwards;
+.header div h2 {
+  font-size: 130px;
+  line-height: 130px;
+  transform: translateY(195px);
+  transition: transform 0.5s;
 }
 
-@keyframes customBackOut {
-  0% {
-    transform: scaleX(1) translateX(0);
-  }
-  30% {
-    transform: scaleX(1.2) translateX(10px);
-  }
-  70% {
-    transform: scaleX(0.9) translateX(-10px);
-  }
-  100% {
-    transform: scaleX(1) translateX(0);
-  }
+.header div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #text {
-  /* margin: 0 200px; */
-  width: 60%;
   color: #000000;
 
-  font-size: 22px;
-  line-height: 28px;
-  /* outline: 3px solid red; */
+  font-size: 27px;
+  line-height: 36px;
 }
 
 a:visited,
@@ -132,6 +147,7 @@ span {
 .collage {
   display: flex;
   margin-top: -27px;
+  margin: 0px;
 }
 
 .svg-wrapper {
@@ -276,42 +292,58 @@ span {
   color: var(--color-orange);
 }
 
-@media only screen and (max-width: 790px) {
+@media only screen and (max-width: 1140px) {
+  .collage {
+    margin: 0px 120px;
+  }
+}
+
+@media only screen and (max-width: 735px) {
+  body {
+    justify-items: center;
+    margin: 40px;
+    gap: 48px;
+  }
+
+  .header div h2 {
+    font-size: 80px;
+  }
+
   #text {
     font-size: 20px;
     line-height: 26px;
   }
 
-  #title {
-    font-size: 120px;
+  .collage {
+    margin: 0px;
   }
 }
 
 /* Small screens */
-@media only screen and (max-width: 493px) {
-  .header {
-    margin-top: 0px;
-    align-self: end;
+@media only screen and (max-width: 490px) {
+  body {
+    gap: 57px;
+    margin: 25px;
   }
 
-  body {
-    grid-template-rows: 1fr 2fr auto;
+  .header {
+    margin-top: 0px;
   }
 
   #text {
-    font-size: 18px;
-    line-height: 22px;
-    width: 80%;
+    margin-top: -33px;
+    font-size: 20px;
+    line-height: 26px;
+    width: 100%;
   }
 
-  #title {
-    font-size: 70px;
+  .header div h2 {
+    font-size: 73px;
   }
 
   .collage {
-    margin-top: -27px;
     flex-direction: column-reverse;
-    align-self: end;
+    width: 100%;
   }
 
   .collage-row-2 {
@@ -319,7 +351,7 @@ span {
   }
 
   .svg-wrapper {
-    width: 140px;
+    width: 109px;
     height: 100%;
   }
 
@@ -330,5 +362,20 @@ span {
 
   .svg-wrapper-2 {
     order: 1;
+  }
+}
+
+@keyframes customBackOut {
+  0% {
+    transform: scaleX(1) translateX(0);
+  }
+  30% {
+    transform: scaleX(1.2) translateX(10px);
+  }
+  70% {
+    transform: scaleX(0.9) translateX(-10px);
+  }
+  100% {
+    transform: scaleX(1) translateX(0);
   }
 }
