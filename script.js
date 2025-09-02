@@ -1,214 +1,189 @@
-function headerMouseAnimation() {
-  const tl = gsap.timeline();
+const sizes = [
+  {widthMin: 40, widthMax: 100, heightMin: 80, heightMax: 120}, // Original
+  {widthMin: 50, widthMax: 125, heightMin: 100, heightMax: 150}, // Large
+  {widthMin: 30, widthMax: 80, heightMin: 60, heightMax: 100}, // Medium
+];
 
-  function mapLineSpacing(mouseX) {
-    const lineHeight = gsap.utils.mapRange(
-      0,
-      window.innerWidth,
-      10,
-      70,
-      mouseX
-    );
+let colors = [
+  "#FFD601",
+  "#FF8CF4",
+  "#EE4A37",
+  "#8A0F52",
+  "#0F3DD4",
+  "#0C7114",
+  "#88E1FF",
+];
 
-    document.querySelector("#title").style.letterSpacing = lineHeight + "px";
-  }
+function createPetal(angle, sizeIndex) {
+  const petal = document.createElement("img");
+  petal.classList.add("pedal");
+  petal.src = Math.random() > 0.5 ? "./media/photos/cloud.png" : "./media/photos/CLOUD_2.png";
+  petal.alt = "petal";
 
-  window.addEventListener("mousemove", (e) => {
-    const mouseX = e.pageX;
-    mapLineSpacing(mouseX);
-    changeThemeColor(mouseX, true);
-  });
+  const {widthMin, widthMax, heightMin, heightMax} = sizes[sizeIndex];
 
-  tl.play();
+  const randomWidth =
+    (Math.floor(Math.random() * (widthMax - widthMin + 1)) + widthMin) / 100;
+  const randomHeight =
+    (Math.floor(Math.random() * (heightMax - heightMin + 1)) + heightMin) / 100;
+
+ // petal.style.transform = `rotate(${angle}deg)`;
+
+  gsap.fromTo(
+    petal,
+    {
+      scaleX: 0,
+      scaleY: 0,
+    },
+    {
+      scaleX: randomWidth,
+      scaleY: randomHeight,
+      duration: 1.5,
+      ease: "elastic.out(1,0.3)",
+    }
+  );
+
+  return petal;
 }
 
-// Original Colors
-const originalColors = {
-  "--color-green": "rgb(87, 159, 36)",
-  "--color-yellow": "#e8bd0f",
-  "--color-pink": "#e386d2",
-  "--color-orange": "#e86322",
-};
+// Function to create a flower
+function createFlower() {
+  let pedalCount = 5;
+  const flower = document.createElement("div");
+  flower.classList.add("flower");
 
-function changeThemeColor(mouseX, darkTheme = false) {
-  const root = document.documentElement;
+  const color = colors[Math.floor(Math.random() * colors.length)];
 
-  // Dark Theme Colors
-  const darkThemeColors = {
-    "--color-green": "rgb(140, 187, 39)",
-    "--color-yellow": "#e8bd0f",
-    "--color-pink": "blue",
-    "--color-orange": "rgb(232, 189, 15)",
+  const sizeIndex = Math.floor(Math.random() * sizes.length);
+
+
+  const angle = (360 / pedalCount) * 1;
+  const petal = createPetal(angle, sizeIndex);
+
+  flower.appendChild(petal);
+  return flower;
+}
+
+window.onload = init;
+let isPageVisible = true;
+let isMousePressed = false;
+let mouseMoveCounter = 0;
+
+function init() {
+  //Set up event callbacks
+  window.onmousemove = onMouseMove;
+  window.onkeypress = onKeyPress;
+  window.onmousedown = onMouseDown;
+  window.onclick = function (e) {
+    onMouseClick(e, false);
   };
 
-  // Get the target colors based on the theme
-  const targetColors = darkTheme ? darkThemeColors : originalColors;
+  // events for mobile
+  window.ontouchmove = onMouseMove;
+  window.ontouchstart = function (e) {
+    onMouseClick(e, true);
+  };
 
-  // Iterate over colors and set new values based on mouse position
-  for (const [colorVar, colorValue] of Object.entries(targetColors)) {
-    const newColor =
-      mouseX < window.innerWidth / 1.4 ? originalColors[colorVar] : colorValue;
-
-    root.style.setProperty(colorVar, newColor);
-  }
-}
-
-function descriptionAnimateOnLoad(elementId) {
-  const text = document.getElementById(elementId);
-
-  const mySplitText = new SplitType(text, {type: "words"});
-
-  const splitTextTimeline = gsap.timeline();
-
-  // gsap.set(text, {perspective: 400});
-
-  mySplitText.split({type: "words"});
-  mySplitText.words.forEach(function (el, index) {
-    splitTextTimeline.from(
-      el,
-      {duration: 0.6, opacity: 0, force3D: true},
-      index * 0.01
-    );
-    splitTextTimeline.from(
-      el,
-      {duration: 0.6, scale: index % 2 == 0 ? 0 : 2},
-      index * 0.01
-    );
+  // animates title
+  const bakersTitle = new SplitType("#bakers-title-real");
+  gsap.to(".char", {
+    y: 0,
+    stagger: 0.05,
+    delay: 0.3,
+    duration: 0.1,
+    onStart: () => {
+      if( document.querySelector(".bakers-title")){
+        document.querySelector(".bakers-title").classList.remove("hidden");
+      }
+    },
   });
+
+  // Generate flowers at regular intervals after title animation
+
+  document.addEventListener("visibilitychange", handleVisibilityChange);
+}
+function handleVisibilityChange() {
+  isPageVisible = document.visibilityState === "visible";
 }
 
-function mapMouseXRotation(mouseX, svgElement, rotationValue) {
-  const rotation = gsap.utils.mapRange(
-    0,
-    window.innerWidth,
-    0,
-    rotationValue,
-    mouseX
-  );
-  if (svgElement) {
-    gsap.to(svgElement, 2, {
-      rotation: rotation,
-      transformOrigin: "50% 50%",
-      ease: "back.out(1.7)",
-    });
-  }
-}
+function onMouseMove(e) {
+  if (isMousePressed || isTouchActive) {
+    // Check if the event is a touch event
+    const isTouch = e.type === 'touchmove';
 
-function mapMouseXScale(mouseX, svgElement) {
-  const scaleValue = gsap.utils.mapRange(0, window.innerWidth, 0.8, 1, mouseX);
-  if (svgElement) {
-    gsap.to(svgElement, 2, {
-      scale: scaleValue,
-      transformOrigin: "50% 50%",
-    });
-  }
-}
+    // Calculate the coordinates based on the event type
+    const clientX = isTouch ? e.touches[0].clientX : e.clientX;
+    const clientY = isTouch ? e.touches[0].clientY : e.clientY;
 
-function mapMouseYTranslate(mouseX, svgElement) {
-  const translateValue = gsap.utils.mapRange(
-    0,
-    window.innerWidth,
-    0,
-    100,
-    mouseX
-  );
-  if (svgElement) {
-    gsap.to(svgElement, 2, {
-      y: -translateValue,
-      transformOrigin: "50% 50%",
-    });
-  }
-}
-
-function mapMouseXColor(x, svgElement, targetColor) {
-  if (svgElement) {
-    // Get the original color only if it's not already stored
-    if (!svgElement.originalColor) {
-      svgElement.originalColor = window.getComputedStyle(svgElement).fill;
+    // we don't want continuously create flower at all times
+    mouseMoveCounter++;
+    if (mouseMoveCounter % 8 === 0) {
+      addObject(clientX - 50, clientY - 100);
     }
-
-    // Calculate the new color based on the mouse position
-    const mouseX = x;
-    const newColor =
-      mouseX < window.innerWidth / 2 ? svgElement.originalColor : targetColor;
-
-    gsap.to(svgElement, {
-      duration: 0.5,
-      attr: {fill: newColor}, // Animate the fill attribute
-      ease: "linear",
-    });
   }
 }
 
-function svgAnimations() {
-  const svgs = document.querySelectorAll(".svg");
+function onMouseClick(e, isTouch) {
+  isMousePressed = true;
 
-  svgs.forEach((svg) => {
-    svg.onload = () => {
-      const svgDoc = svg.contentDocument;
-      // Window
-      const pinkStarElement = svgDoc.getElementById("pink-star");
-      const windowSvg = svgDoc.getElementById("window");
-      const bubblePlant = svgDoc.getElementById("bubble-plant");
-
-      // Cloud
-      const greenCloud = svgDoc.getElementById("green-cloud");
-      const greenCloudLeftEye = svgDoc.getElementById("left-eye");
-      const greenCloudRightEye = svgDoc.getElementById("right-eye");
-      const nowIsOurTimeBadge = svgDoc.getElementById("okay-sticker");
-
-      // Peace Badge
-      const peaceBadge = svgDoc.getElementById("peace-badge");
-      const peaceBadgeBanner = svgDoc.getElementById("u-are-text-banner");
-      const peaceBadgeSparkle = svgDoc.getElementById("big-sparkle");
-
-      // Palm tree get it together
-      const getItTogetherBadge = svgDoc.getElementById("get-it-together-badge");
-      const palmTree = svgDoc.getElementById("palm");
-
-      // You Do You
-      const youDoYouSticker = svgDoc.getElementById("badge-you");
-      const crossEyes = svgDoc.getElementById("cross-eyes");
-
-      window.addEventListener("mousemove", (e) => {
-        const mouseX = e.pageX;
-
-        // Window
-        mapMouseXRotation(mouseX, pinkStarElement, 180);
-        mapMouseXRotation(mouseX, windowSvg, 30);
-
-        mapMouseXColor(mouseX, pinkStarElement, "blue");
-        mapMouseXColor(mouseX, bubblePlant, "#B7F631");
-
-        // Cloud
-        mapMouseXScale(mouseX, greenCloud);
-        mapMouseXRotation(mouseX, greenCloudLeftEye, 90);
-        mapMouseXRotation(mouseX, greenCloudRightEye, 90);
-        mapMouseXRotation(mouseX, nowIsOurTimeBadge, -30);
-
-        // Peace Badge
-        mapMouseXRotation(mouseX, peaceBadge, -24);
-        mapMouseXRotation(mouseX, peaceBadgeBanner, 24);
-
-        mapMouseXRotation(mouseX, peaceBadgeSparkle, 270);
-        mapMouseXScale(mouseX, peaceBadgeSparkle);
-
-        // Palm tree get it together
-        mapMouseXScale(mouseX, getItTogetherBadge);
-        mapMouseYTranslate(mouseX, getItTogetherBadge);
-        mapMouseXColor(mouseX, palmTree, "blue");
-
-        // You Do You
-        mapMouseXRotation(mouseX, youDoYouSticker, -360);
-        mapMouseXColor(mouseX, crossEyes, "blue");
-      });
-    };
-  });
+  if (isTouch) {
+    isTouchActive = true; // Set the touch active flag
+    const touch = e.touches[0];
+    if (touch) {
+      addObject(touch.clientX - 50, touch.clientY - 100);
+    }
+  } else {
+    addObject(e.clientX - 50, e.clientY - 100);
+  }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  svgAnimations();
-  headerMouseAnimation();
-
-  // descriptionAnimateOnLoad("text")
+// Add a touchend event handler to detect when the touch ends
+document.addEventListener('touchend', function () {
+  isTouchActive = false;
 });
+
+// Initialize the isTouchActive flag to false
+let isTouchActive = false;
+
+function onKeyPress() {
+  //Clear all active and inactive elements
+
+  document.querySelector(".flowers").innerHTML = "";
+}
+function addObject(x, y) {
+  //Create DOM element
+  let element = createFlower();
+
+  element.style.left = x + "px";
+
+  const rotationAngles = [-160, -120, 120, 160, 240, 360, -240, -360];
+  const randomRotation =
+    rotationAngles[Math.floor(Math.random() * rotationAngles.length)];
+
+  document.querySelector(".flowers").appendChild(element);
+
+  // animate flower
+  gsap.fromTo(
+    element,
+    {y: y},
+    {
+      y: window.innerHeight + 100,
+      duration: 2,
+      ease: "power1.in",
+      rotate: randomRotation,
+      onComplete: () => {
+        element.parentNode.removeChild(element);
+      },
+    }
+  );
+}
+
+function onMouseDown() {
+  let interval = setInterval(() => {
+    isMousePressed = true;
+  }, 200);
+  window.addEventListener("click", () => {
+    clearInterval(interval);
+    isMousePressed = false;
+  });
+}

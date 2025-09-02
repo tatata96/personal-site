@@ -3,79 +3,89 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta property="og:image" content="https://bakers.studio/thumbnail.png" />
+  <title>Bakers Studio</title>
 
-  <title>t!</title>
-  <link rel="icon" type="image/x-icon" href="/title.svg">
-  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <meta name="description"
+    content="We're the culinary masters of your digital kitchen. Specializing in design and tech, we've got a track record of helping companies ship masterfully crafted products. Your vision, our expertise — let's cook up something incredible together." />
+  <link rel="icon" type="image/x-icon" href="./favicon.png">
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>
-  <div class="header">
-    <h2 id="title">TAMARA</h2>
-  </div>
+  <div class="wrapper">
+    <div class="introduction">
 
-  <div id="text">
+      <div class="text-moving-banner">
+        <div class="banner-content">
+          <span>HELLO STRANGER</span>
+          <span>HELLO STRANGER</span>
+          <span>HELLO STRANGER</span>
+          <span>HELLO STRANGER</span>
+          <span>HELLO STRANGER</span>
+          <span>HELLO STRANGER</span>
+          <span>HELLO STRANGER</span>
+        </div>
+      </div>
 
-    Welcome to my corner of the <a href="#" class="tooltip-link tooltip-web"><strong>web.</strong>
-      <div class="tooltip"></div>
-    </a>This is <a href="#" class="tooltip-link tooltip-tamara"><strong>Tamara.</strong>
-      <div class="tooltip"></div>
-    </a> I am a <a href="#" class="tooltip-link tooltip-developer"><strong>frontend developer</strong>
-      <div class="tooltip"></div>
-    </a> born and raised in <a href="#" class="tooltip-link tooltip-istanbul"><strong>Istanbul</strong>
-      <div class="tooltip"></div>
-    </a>, currently residing in the beatiful city of <a href="#"
-      class="tooltip-link tooltip-barcelona"><strong>Barcelona</strong>
-      <div class="tooltip"></div>
-    </a>.
+      <div class="noselect introduction-text">
+        <p>
+          Welcome to <strong> my corner of the web</strong>
+        </p>
+
+        <p style="text-transform: math-auto;">
+          I’m a frontend developer currently in Istanbul, focused on shipping scalable, maintainable products with pragmatic stacks.
+           Day-to-day I work with React/Next.js and TypeScript on the web, React Native (Expo) on mobile, and Django/htmx when the server should do the heavy lifting. I sweat UX and performance (GSAP/Reanimated), keep deployments calm with Vercel/EAS + CI/CD, and lately I’ve been building <a href="https://www.linkedin.com/company/onbrik/posts/?feedView=all">Brik </a>— a gamified training platform—across android/ios applications.
+
+
+        </p>
+      </div>
+    </div>
+
+
+
+
+
+     <!-- Social -->
+     <div style="flex:1 1 220px;min-width:220px;">
+      <div style="display:flex;gap:12px;">
+        <!-- Facebook -->
+        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"
+           aria-label="Facebook"
+           >
+         
+           <p>LinkedIn</p>
+        </a>
+
+        <!-- Twitter -->
+        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"
+      >
+           <p>LinkedIn</p>
+
+        </a>
+
+        <!-- LinkedIn -->
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"
+           aria-label="LinkedIn"
+>
+           <p>LinkedIn</p>
+
+        </a>
+      </div>
+    </div>
     
-    <!-- I have been working in <a href="#" class="tooltip-link tooltip-fin"><strong>fin-tech</strong>
-      <div class="tooltip"></div>
-    </a>. -->
-
-    I am eager to explore the endless possibilities of merging code with creativity in design.I would like to
-    build websites and modern web apps that bring <a href="#" class="tooltip-link tooltip-joy"><strong>joy</strong>
-      <div class="tooltip"></div>
-    </a> and make people go <a href="#" class="tooltip-link tooltip-who"><em>who made that?</em>
-      <div class="tooltip"></div>
-    </a>.
-  </br>
-    <a href="#" class="tooltip-link tooltip-connect"><strong>Wanna connect? </strong>
-      <div class="tooltip"></div>
-    </a>
   </div>
 
-  <div class="collage">
-    <div class="collage-row collage-row-1">
-      <div class="svg-wrapper svg-wrapper-1">
-        <object type="image/svg+xml" class="svg" data="./media/collage/window.svg"></object>
-      </div>
-
-      <div class="svg-wrapper svg-wrapper-2">
-        <object type="image/svg+xml" class="svg" data="./media/collage/green-cloud.svg"></object>
-
-      </div>
-
-      <div class="svg-wrapper svg-wrapper-3">
-        <object type="image/svg+xml" class="svg" data="./media/collage/peace-badge.svg"></object>
-      </div>
-    </div>
-
-    <div class="collage-row collage-row-2">
-      <div class="svg-wrapper svg-wrapper-4">
-        <object type="image/svg+xml" class="svg" data="./media/collage/palm-sticker.svg"></object>
-      </div>
-
-      <div class="svg-wrapper svg-wrapper-5">
-        <object type="image/svg+xml" class="svg" data="./media/collage/badge-you.svg"></object>
-      </div>
-    </div>
-  </div>
+  <div class="flowers"></div>
 
   <script src="./libraries/gsap.min.js"></script>
   <script src="./libraries/text-plugin-gsap.min.js"></script>
   <script src="./libraries/split-type"></script>
+
   <script src="script.js"></script>
 </body>
 

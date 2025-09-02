@@ -49,6 +49,9 @@ body {
   overflow: hidden;
 }
 
+a {
+  text-decoration: none;
+}
 body {
   /* display: flex;
   flex-direction: column;
@@ -331,4 +334,9 @@ span {
   .svg-wrapper-2 {
     order: 1;
   }
+}
+
+a {
+  text-decoration: none;
+  color: #74bd1e;
 }
